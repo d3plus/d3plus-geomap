@@ -1,0 +1,42 @@
+{
+  "name": "d3plus-geomap",
+  "version": "0.1.0",
+  "description": "A reusable geo map built on D3 and Topojson",
+  "main": "build/d3plus-geomap.js",
+  "jsnext:main": "index",
+  "license": "MIT",
+  "homepage": "https://d3plus.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d3plus/d3plus-geomap.git"
+  },
+  "keywords": [
+    "geomap",
+    "d3",
+    "d3plus",
+    "data",
+    "visualization"
+  ],
+  "author": {
+    "name": "Dave Landry",
+    "email": "landry.dave@gmail.com",
+    "url": "http://www.dave-landry.com"
+  },
+  "dependencies": {
+    "d3plus-common": "^0.6.8",
+    "d3plus-shape": "^0.8.19",
+    "d3plus-viz": "^0.3.12"
+  },
+  "scripts": {
+    "build": "d3plus-build",
+    "dev": "d3plus-dev",
+    "docs": "d3plus-docs",
+    "env": "d3plus-env",
+    "examples": "d3plus-examples",
+    "release": "d3plus-release",
+    "test": "d3plus-test"
+  },
+  "devDependencies": {
+    "d3plus-dev": "^0.1.11"
+  }
+}
