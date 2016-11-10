@@ -1,15 +1,15 @@
-import {extent} from "d3-array";
+import {extent, max, quantile} from "d3-array";
 import * as d3Geo from "d3-geo";
 import * as scales from "d3-scale";
 import {event} from "d3-selection";
 import {tile} from "d3-tile";
 import {zoom, zoomTransform} from "d3-zoom";
-// import {default as topo} from "../test/samoa.json";
-import {default as topo} from "world-atlas/world/110m.json";
+import {default as topo} from "../test/samoa.json";
+// import {default as topo} from "world-atlas/world/110m.json";
 import {feature} from "topojson-client";
 
 import {accessor, constant} from "d3plus-common";
-import {Circle, Path} from "d3plus-shape";
+import {Circle, Path, pointDistance} from "d3plus-shape";
 import {Viz} from "d3plus-viz";
 
 /**
@@ -286,12 +286,65 @@ export default class Geomap extends Viz {
 
     const p = this._padding;
 
+    const path = this._path = d3Geo.geoPath()
+      .projection(this._projection);
+
     if (!this._zoomSet) {
 
-      const extentBounds = this._bounds ? {
+      const extentBounds = {
         type: "FeatureCollection",
-        features: coordData.features.filter(this._bounds)
-      } : coordData;
+        features: this._bounds ? coordData.features.filter(this._bounds) : coordData.features.slice()
+      };
+
+      extentBounds.features = extentBounds.features.reduce((arr, d) => {
+
+        const reduced = {
+          type: d.type,
+          id: d.id,
+          geometry: {
+            coordinates: d.geometry.coordinates,
+            type: d.geometry.type
+          }
+        };
+
+        if (d.geometry.coordinates.length > 1) {
+
+          const areas = [],
+                distances = [];
+
+          d.geometry.coordinates.forEach(c => {
+
+            reduced.geometry.coordinates = [c];
+            areas.push(path.area(reduced));
+
+          });
+
+          reduced.geometry.coordinates = [d.geometry.coordinates[areas.indexOf(max(areas))]];
+          const center = path.centroid(reduced);
+
+          d.geometry.coordinates.forEach(c => {
+
+            reduced.geometry.coordinates = [c];
+            distances.push(pointDistance(path.centroid(reduced), center));
+
+          });
+
+          const distCutoff = quantile(areas.reduce((arr, dist, i) => {
+            if (dist) arr.push(areas[i] / dist);
+            return arr;
+          }, []), 0.9);
+
+          reduced.geometry.coordinates = d.geometry.coordinates.filter((c, i) => {
+            const dist = distances[i];
+            return dist === 0 || areas[i] / dist >= distCutoff;
+          });
+
+        }
+
+        arr.push(reduced);
+        return arr;
+
+      }, []);
 
       this._projection = this._projection
         .fitExtent([[p, p], [width - p * 2, height - p * 2]], extentBounds);
@@ -302,9 +355,6 @@ export default class Geomap extends Viz {
         .on("zoom", this._zoomed.bind(this));
 
     }
-
-    const path = this._path = d3Geo.geoPath()
-      .projection(this._projection);
 
     // TODO: Zoom math?
     // function zoomMath(factor) {
