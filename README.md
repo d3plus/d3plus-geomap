@@ -12,7 +12,7 @@ A reusable geo map built on D3 and Topojson
 If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-geomap/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a [custom bundle using Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-geomap.v0.1.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-geomap.v0.2.full.min.js"></script>
 ```
 
 
@@ -177,4 +177,4 @@ If *value* is specified, toggles the zoom behavior and returns the current class
 
 
 
-###### <sub>Documentation generated on Wed, 09 Nov 2016 21:53:14 GMT</sub>
+###### <sub>Documentation generated on Thu, 10 Nov 2016 21:30:08 GMT</sub>
