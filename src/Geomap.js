@@ -4,8 +4,6 @@ import * as scales from "d3-scale";
 import {event} from "d3-selection";
 import {tile} from "d3-tile";
 import {zoom, zoomTransform} from "d3-zoom";
-import {default as topo} from "../test/samoa.json";
-// import {default as topo} from "world-atlas/world/110m.json";
 import {feature} from "topojson-client";
 
 import {accessor, constant} from "d3plus-common";
@@ -57,7 +55,6 @@ export default class Geomap extends Viz {
     // this._tileGen = tile().wrap(false);
     this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
 
-    this._topojson = topo;
     this._topojsonFilter = d => !["010"].includes(d.id);
     this._topojsonKey = "countries";
 
@@ -284,14 +281,18 @@ export default class Geomap extends Viz {
 
     if (this._topojsonFilter) coordData.features = coordData.features.filter(this._topojsonFilter);
 
-    const p = this._padding;
-
     const path = this._path = d3Geo.geoPath()
       .projection(this._projection);
 
+    const pointData = this._filteredData.filter((d, i) => this._shape(d, i) !== "Path");
+
+    const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
+      .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
+      .range([this._pointSizeMin, this._pointSizeMax]);
+
     if (!this._zoomSet) {
 
-      const extentBounds = {
+      let extentBounds = {
         type: "FeatureCollection",
         features: this._bounds ? coordData.features.filter(this._bounds) : coordData.features.slice()
       };
@@ -346,8 +347,39 @@ export default class Geomap extends Viz {
 
       }, []);
 
+      let p = this._padding;
+      if (!extentBounds.features.length && pointData.length) {
+
+        const bounds = [[undefined, undefined], [undefined, undefined]];
+        pointData.forEach((d, i) => {
+
+          const point = this._projection(this._point(d, i));
+          if (bounds[0][0] === void 0 || point[0] < bounds[0][0]) bounds[0][0] = point[0];
+          if (bounds[1][0] === void 0 || point[0] > bounds[1][0]) bounds[1][0] = point[0];
+          if (bounds[0][1] === void 0 || point[1] < bounds[0][1]) bounds[0][1] = point[1];
+          if (bounds[1][1] === void 0 || point[1] > bounds[1][1]) bounds[1][1] = point[1];
+
+        });
+
+        extentBounds = {
+          type: "FeatureCollection",
+          features: [{
+            type: "Feature",
+            geometry: {
+              type: "MultiPoint",
+              coordinates: bounds.map(b => this._projection.invert(b))
+            }
+          }]
+        };
+        p = max(pointData, (d, i) => r(this._pointSize(d, i)) + p);
+
+      }
+
       this._projection = this._projection
-        .fitExtent([[p, p], [width - p * 2, height - p * 2]], extentBounds);
+        .fitExtent(
+          extentBounds.features.length ? [[p, p], [width - p * 2, height - p * 2]] : [[0, 0], [width, height]],
+          extentBounds.features.length ? extentBounds : {type: "Sphere"}
+        );
 
       this._zoomBehavior
         .scaleExtent([1, 16])
@@ -444,12 +476,6 @@ export default class Geomap extends Viz {
     pointGroup = pointGroup.enter().append("g")
       .attr("class", "d3plus-geomap-pins")
       .merge(pointGroup);
-
-    const pointData = this._filteredData.filter((d, i) => this._shape(d, i) !== "Path");
-
-    const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
-      .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
-      .range([this._pointSizeMin, this._pointSizeMax]);
 
     const circles = new Circle()
       .config(this._shapeConfig)

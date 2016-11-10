@@ -32,8 +32,7 @@
     "d3plus-common": "^0.6.8",
     "d3plus-shape": "^0.8.22",
     "d3plus-viz": "^0.3.12",
-    "topojson-client": "^2.1.0",
-    "world-atlas": "^1.1.0"
+    "topojson-client": "^2.1.0"
   },
   "scripts": {
     "build": "d3plus-build",
