@@ -407,6 +407,7 @@ export default class Geomap extends Viz {
       .data(pointData)
       .r((d, i) => r(this._pointSize(d, i)))
       .select(pointGroup.node())
+      .sort((a, b) => this._pointSize(b) - this._pointSize(a))
       .x((d, i) => this._projection(this._point(d, i))[0])
       .y((d, i) => this._projection(this._point(d, i))[1]);
 
