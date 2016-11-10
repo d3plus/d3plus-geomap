@@ -45,8 +45,8 @@ export default class Geomap extends Viz {
     this._shape = constant("Circle");
     this._shapeConfig = Object.assign({}, this._shapeConfig, {
       Path: {
-        fill: "rgba(230, 230, 230, 0.25)",
-        stroke: "rgba(40, 40, 40, 0.25)",
+        fill: "#f5f5f3",
+        stroke: "#b1babe",
         strokeWidth: 1
       }
     });
