@@ -30,7 +30,7 @@
     "d3-tile": "0.0.3",
     "d3-zoom": "^1.0.3",
     "d3plus-common": "^0.6.8",
-    "d3plus-shape": "^0.8.21",
+    "d3plus-shape": "^0.8.22",
     "d3plus-viz": "^0.3.12",
     "topojson-client": "^2.1.0",
     "world-atlas": "^1.1.0"
