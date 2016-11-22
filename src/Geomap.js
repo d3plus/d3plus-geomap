@@ -6,7 +6,7 @@ import {tile} from "d3-tile";
 import {zoom, zoomTransform} from "d3-zoom";
 import {feature} from "topojson-client";
 
-import {accessor, constant} from "d3plus-common";
+import {accessor, assign, constant} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {Viz} from "d3plus-viz";
 
@@ -41,7 +41,7 @@ export default class Geomap extends Viz {
     this._rotate = [0, 0];
 
     this._shape = constant("Circle");
-    this._shapeConfig = Object.assign({}, this._shapeConfig, {
+    this._shapeConfig = assign(this._shapeConfig, {
       Path: {
         fill: "#f5f5f3",
         stroke: "#b1babe",
