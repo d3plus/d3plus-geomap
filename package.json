@@ -31,7 +31,7 @@
     "d3-zoom": "^1.1.1",
     "d3plus-common": "^0.6.9",
     "d3plus-shape": "^0.10.8",
-    "d3plus-viz": "^0.4.10",
+    "d3plus-viz": "^0.4.11",
     "topojson-client": "^2.1.0"
   },
   "scripts": {
