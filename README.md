@@ -177,4 +177,4 @@ If *value* is specified, toggles the zoom behavior and returns the current class
 
 
 
-###### <sub>Documentation generated on Thu, 01 Dec 2016 17:05:36 GMT</sub>
+###### <sub>Documentation generated on Mon, 05 Dec 2016 04:25:20 GMT</sub>
