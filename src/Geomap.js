@@ -61,9 +61,9 @@ export default class Geomap extends Viz {
     this._zoom = true;
     this._zoomBehavior = zoom();
     this._zoomBrush = false;
-    this._zoomFactor = 2;
+    // this._zoomFactor = 2;
     this._zoomPan = true;
-    this._zoomReset = true;
+    // this._zoomReset = true;
     this._zoomScroll = true;
     this._zoomSet = false;
 
@@ -385,6 +385,8 @@ export default class Geomap extends Viz {
         .scaleExtent([1, 16])
         .translateExtent([[0, 0], [width, height]])
         .on("zoom", this._zoomed.bind(this));
+
+      this._zoomSet = true;
 
     }
 
