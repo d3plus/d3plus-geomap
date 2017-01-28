@@ -8,7 +8,7 @@ import {feature} from "topojson-client";
 
 import {accessor, assign, constant} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
-import {Viz} from "d3plus-viz";
+import {dataLoad as load, Viz} from "d3plus-viz";
 
 /**
     @class Geomap
@@ -55,6 +55,7 @@ export default class Geomap extends Viz {
     // this._tileGen = tile().wrap(false);
     this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
 
+    this._topojson = false;
     this._topojsonFilter = d => !["010"].includes(d.id);
     this._topojsonKey = "countries";
 
@@ -199,12 +200,12 @@ export default class Geomap extends Viz {
   }
 
   /**
-      Extends the render behavior of the abstract Viz class.
+      Extends the draw behavior of the abstract Viz class.
       @private
   */
-  render(callback) {
+  _draw(callback) {
 
-    super.render(callback);
+    super._draw(callback);
 
     const height = this._height - this._margin.top - this._margin.bottom,
           width = this._width - this._margin.left - this._margin.right;
@@ -542,6 +543,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, filters the features used to calculate the initial projection fitExtent based on an ID, array of IDs, or filter function and returns the current class instance. If *value* is not specified, returns the current bounds filter.
       @param {Number|String|Array|Function} [*value*]
+      @chainable
   */
   bounds(_) {
     if (arguments.length) {
@@ -556,6 +558,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the ocean color and returns the current class instance. If *value* is not specified, returns the current ocean color.
       @param {String} [*value* = "#cdd1d3"]
+      @chainable
   */
   ocean(_) {
     return arguments.length ? (this._ocean = _, this) : this._ocean;
@@ -565,6 +568,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the topojson outer padding and returns the current class instance. If *value* is not specified, returns the current topojson outer padding.
       @param {Number} [*value* = 20]
+      @chainable
   */
   padding(_) {
     return arguments.length ? (this._padding = _, this) : this._padding;
@@ -574,6 +578,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the point accessor to the specified function or array and returns the current class instance. Point values are expected in the format [longitude, latitude], which is in-line with d3's expected [x, y] mapping. If *value* is not specified, returns the current point accessor.
       @param {Function|Array} [*value*]
+      @chainable
   */
   point(_) {
     return arguments.length ? (this._point = typeof _ === "function" ? _ : constant(_), this) : this._point;
@@ -583,6 +588,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the point size accessor to the specified function or number and returns the current class instance. If *value* is not specified, returns the current point size accessor.
       @param {Function|Number} [*value*]
+      @chainable
   */
   pointSize(_) {
     return arguments.length ? (this._pointSize = typeof _ === "function" ? _ : constant(_), this) : this._pointSize;
@@ -592,6 +598,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the maximum point radius and returns the current class instance. If *value* is not specified, returns the current maximum point radius.
       @param {Number} [*value* = 10]
+      @chainable
   */
   pointSizeMax(_) {
     return arguments.length ? (this._pointSizeMax = _, this) : this._pointSizeMax;
@@ -601,6 +608,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the minimum point radius and returns the current class instance. If *value* is not specified, returns the current minimum point radius.
       @param {Number} [*value* = 5]
+      @chainable
   */
   pointSizeMin(_) {
     return arguments.length ? (this._pointSizeMin = _, this) : this._pointSizeMin;
@@ -610,6 +618,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, toggles the map tiles and returns the current class instance. If *value* is not specified, returns the current tiling boolean.
       @param {Boolean} [*value* = true]
+      @chainable
   */
   tiles(_) {
     return arguments.length ? (this._tiles = _, this) : this._tiles;
@@ -617,17 +626,24 @@ export default class Geomap extends Viz {
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the topojson to be used and returns the current class instance. If *value* is not specified, returns the current topojson.
-      @param {Boolean|Object} [*value*]
+      @desc Sets the topojson to be used for drawing geographical paths. The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
+
+Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function should return the final Topojson *Obejct*.
+
+If *data* is not specified, this method returns the current Topojson *Object*, which by default is `null`.
+      @param {Object|String} *data* = []
+      @param {Function} [*formatter*]
+      @chainable
   */
-  topojson(_) {
-    return arguments.length ? (this._topojson = _, this) : this._topojson;
+  topojson(_, f) {
+    return arguments.length ? (this._queue.push([load.bind(this), _, f, "topojson"]), this) : this._data;
   }
 
   /**
       @memberof Geomap
       @desc If *value* is specified, filters the features used to calculate the initial projection fitExtent based on an ID, array of IDs, or filter function and returns the current class instance. If *value* is not specified, returns the current bounds filter.
       @param {Number|String|Array|Function} [*value*]
+      @chainable
   */
   topojsonFilter(_) {
     if (arguments.length) {
@@ -642,6 +658,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
       @param {String} [*value* = "countries"]
+      @chainable
   */
   topojsonKey(_) {
     return arguments.length ? (this._topojsonKey = _, this) : this._topojsonKey;
@@ -651,6 +668,7 @@ export default class Geomap extends Viz {
       @memberof Geomap
       @desc If *value* is specified, toggles the zoom behavior and returns the current class instance. If *value* is not specified, returns the current zoom behavior.
       @param {Boolean} [*value* = true]
+      @chainable
   */
   zoom(_) {
     return arguments.length ? (this._zoom = _, this) : this._zoom;
