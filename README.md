@@ -25,7 +25,9 @@ If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest rel
 
 * [Geomap](#Geomap) ⇐ <code>Viz</code>
     * [new Geomap()](#new_Geomap_new)
-    * [.bounds([*value*])](#Geomap.bounds) ↩︎
+    * [.fitFilter([*value*])](#Geomap.fitFilter) ↩︎
+    * [.fitKey(*value*)](#Geomap.fitKey) ↩︎
+    * [.fitObject(*data*, [*formatter*])](#Geomap.fitObject) ↩︎
     * [.ocean([*value*])](#Geomap.ocean) ↩︎
     * [.padding([*value*])](#Geomap.padding) ↩︎
     * [.point([*value*])](#Geomap.point) ↩︎
@@ -35,7 +37,7 @@ If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest rel
     * [.tiles([*value*])](#Geomap.tiles) ↩︎
     * [.topojson(*data*, [*formatter*])](#Geomap.topojson) ↩︎
     * [.topojsonFilter([*value*])](#Geomap.topojsonFilter) ↩︎
-    * [.topojsonKey([*value*])](#Geomap.topojsonKey) ↩︎
+    * [.topojsonKey(*value*)](#Geomap.topojsonKey) ↩︎
     * [.zoom([*value*])](#Geomap.zoom) ↩︎
 
 <a name="new_Geomap_new"></a>
@@ -43,9 +45,9 @@ If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest rel
 #### new Geomap()
 Creates SVG paths and coordinate points based on an array of data. See [this example](https://d3plus.org/examples/d3plus-geomap/getting-started/) for help getting started using the geomap generator.
 
-<a name="Geomap.bounds"></a>
+<a name="Geomap.fitFilter"></a>
 
-#### Geomap.bounds([*value*]) ↩︎
+#### Geomap.fitFilter([*value*]) ↩︎
 If *value* is specified, filters the features used to calculate the initial projection fitExtent based on an ID, array of IDs, or filter function and returns the current class instance. If *value* is not specified, returns the current bounds filter.
 
 **Kind**: static method of <code>[Geomap](#Geomap)</code>  
@@ -54,6 +56,35 @@ If *value* is specified, filters the features used to calculate the initial proj
 | Param | Type |
 | --- | --- |
 | [*value*] | <code>Number</code> &#124; <code>String</code> &#124; <code>Array</code> &#124; <code>function</code> | 
+
+<a name="Geomap.fitKey"></a>
+
+#### Geomap.fitKey(*value*) ↩︎
+If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
+
+**Kind**: static method of <code>[Geomap](#Geomap)</code>  
+**Chainable**  
+
+| Param | Type |
+| --- | --- |
+| *value* | <code>String</code> | 
+
+<a name="Geomap.fitObject"></a>
+
+#### Geomap.fitObject(*data*, [*formatter*]) ↩︎
+Sets the topojson to be used for the initial projection [fit extent](https://github.com/d3/d3-geo#projection_fitExtent). The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
+
+Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function should return the final Topojson *Obejct*.
+
+If *data* is not specified, this method returns the current Topojson *Object*, which by default is `undefined`.
+
+**Kind**: static method of <code>[Geomap](#Geomap)</code>  
+**Chainable**  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| *data* | <code>Object</code> &#124; <code>String</code> | = `undefined` |
+| [*formatter*] | <code>function</code> |  |
 
 <a name="Geomap.ocean"></a>
 
@@ -170,15 +201,15 @@ If *value* is specified, filters the features used to calculate the initial proj
 
 <a name="Geomap.topojsonKey"></a>
 
-#### Geomap.topojsonKey([*value*]) ↩︎
+#### Geomap.topojsonKey(*value*) ↩︎
 If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
 
 **Kind**: static method of <code>[Geomap](#Geomap)</code>  
 **Chainable**  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| [*value*] | <code>String</code> | <code>&quot;countries&quot;</code> | 
+| Param | Type |
+| --- | --- |
+| *value* | <code>String</code> | 
 
 <a name="Geomap.zoom"></a>
 
@@ -194,4 +225,4 @@ If *value* is specified, toggles the zoom behavior and returns the current class
 
 
 
-###### <sub>Documentation generated on Sat, 28 Jan 2017 20:03:47 GMT</sub>
+###### <sub>Documentation generated on Thu, 16 Feb 2017 19:59:08 GMT</sub>
