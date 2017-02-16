@@ -26,6 +26,7 @@ export default class Geomap extends Viz {
 
     super();
 
+    this._fitObject = false;
     this._ocean = "#cdd1d3";
 
     this._padding = 20;
@@ -57,7 +58,6 @@ export default class Geomap extends Viz {
 
     this._topojson = false;
     this._topojsonFilter = d => !["010"].includes(d.id);
-    this._topojsonKey = "countries";
 
     this._zoom = true;
     this._zoomBehavior = zoom();
@@ -276,8 +276,13 @@ export default class Geomap extends Viz {
     //
     // if (this._zoom) brushGroup.call(brush);
 
+    function topo2feature(topo, key) {
+      const k = key && topo.objects[key] ? key : Object.keys(topo.objects)[0];
+      return feature(topo, topo.objects[k]);
+    }
+
     const coordData = this._topojson
-                    ? feature(this._topojson, this._topojson.objects[this._topojsonKey])
+                    ? topo2feature(this._topojson, this._topojsonKey)
                     : {type: "FeatureCollection", features: []};
 
     if (this._topojsonFilter) coordData.features = coordData.features.filter(this._topojsonFilter);
@@ -293,9 +298,11 @@ export default class Geomap extends Viz {
 
     if (!this._zoomSet) {
 
+      const fitData = this._fitObject ? topo2feature(this._fitObject, this._fitKey) : coordData;
+
       let extentBounds = {
         type: "FeatureCollection",
-        features: this._bounds ? coordData.features.filter(this._bounds) : coordData.features.slice()
+        features: this._fitFilter ? fitData.features.filter(this._fitFilter) : fitData.features.slice()
       };
 
       extentBounds.features = extentBounds.features.reduce((arr, d) => {
@@ -545,13 +552,38 @@ export default class Geomap extends Viz {
       @param {Number|String|Array|Function} [*value*]
       @chainable
   */
-  bounds(_) {
+  fitFilter(_) {
     if (arguments.length) {
-      if (typeof _ === "function") return this._bounds = _, this;
+      if (typeof _ === "function") return this._fitFilter = _, this;
       if (!(_ instanceof Array)) _ = [_];
-      return this._bounds = d => _.includes(d.id), this;
+      return this._fitFilter = d => _.includes(d.id), this;
     }
-    return this._bounds;
+    return this._fitFilter;
+  }
+
+  /**
+      @memberof Geomap
+      @desc If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
+      @param {String} *value*
+      @chainable
+  */
+  fitKey(_) {
+    return arguments.length ? (this._fitKey = _, this) : this._fitKey;
+  }
+
+  /**
+      @memberof Geomap
+      @desc Sets the topojson to be used for the initial projection [fit extent](https://github.com/d3/d3-geo#projection_fitExtent). The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
+
+Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function should return the final Topojson *Obejct*.
+
+If *data* is not specified, this method returns the current Topojson *Object*, which by default is `undefined`.
+      @param {Object|String} *data* = `undefined`
+      @param {Function} [*formatter*]
+      @chainable
+  */
+  fitObject(_, f) {
+    return arguments.length ? (this._queue.push([load.bind(this), _, f, "fitObject"]), this) : this._fitObject;
   }
 
   /**
@@ -636,7 +668,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
       @chainable
   */
   topojson(_, f) {
-    return arguments.length ? (this._queue.push([load.bind(this), _, f, "topojson"]), this) : this._data;
+    return arguments.length ? (this._queue.push([load.bind(this), _, f, "topojson"]), this) : this._topojson;
   }
 
   /**
@@ -657,7 +689,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
   /**
       @memberof Geomap
       @desc If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
-      @param {String} [*value* = "countries"]
+      @param {String} *value*
       @chainable
   */
   topojsonKey(_) {
