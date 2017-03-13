@@ -51,9 +51,7 @@ export default class Geomap extends Viz {
     });
 
     this._tiles = true;
-    this._tileGen = tile();
-    // TODO: waiting on d3-tile release update
-    // this._tileGen = tile().wrap(false);
+    this._tileGen = tile().wrap(false);
     this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
 
     this._topojson = false;
@@ -93,7 +91,7 @@ export default class Geomap extends Viz {
     }
 
     const images = this._tileGroup.selectAll("image.tile")
-        .data(tileData, d => d.join("-"));
+        .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
 
     images.exit().remove();
 
@@ -101,13 +99,13 @@ export default class Geomap extends Viz {
       .attr("class", "tile")
       .attr("xlink:href", d => this._tileUrl
         .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
-        .replace("{z}", d[2])
-        .replace("{x}", d[0])
-        .replace("{y}", d[1]))
+        .replace("{z}", d.z)
+        .replace("{x}", d.x)
+        .replace("{y}", d.y))
       .attr("width", 1)
       .attr("height", 1)
-      .attr("x", d => d[0])
-      .attr("y", d => d[1]);
+      .attr("x", d => d.x)
+      .attr("y", d => d.y);
 
   }
 
