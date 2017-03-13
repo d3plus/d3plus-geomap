@@ -11,10 +11,6 @@ import {accessor, assign, constant} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
 
-import {default as mouseenter} from "d3plus-viz/src/on/mouseenter";
-import {default as mouseleave} from "d3plus-viz/src/on/mouseleave";
-import {default as mousemove} from "d3plus-viz/src/on/mousemove.shape";
-
 /**
     @class Geomap
     @extends Viz
@@ -57,9 +53,9 @@ export default class Geomap extends Viz {
           return "#f5f5f3";
         },
         on: {
-          mouseenter: d => d.data ? mouseenter.bind(this)(d) : null,
-          mousemove: d => d.data ? mousemove.bind(this)(d) : null,
-          mouseleave: d => d.data ? mouseleave.bind(this)(d) : null
+          mouseenter: d => d.data ? this._on.mouseenter.bind(this)(d) : null,
+          mousemove: d => d.data ? this._on["mousemove.shape"].bind(this)(d) : null,
+          mouseleave: d => d.data ? this._on.mouseleave.bind(this)(d) : null
         },
         stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
         strokeWidth: 1
