@@ -1,4 +1,5 @@
 import {extent, max, quantile} from "d3-array";
+import {color} from "d3-color";
 import * as d3Geo from "d3-geo";
 import * as scales from "d3-scale";
 import {event} from "d3-selection";
@@ -9,6 +10,10 @@ import {feature} from "topojson-client";
 import {accessor, assign, constant} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
+
+import {default as mouseenter} from "d3plus-viz/src/on/mouseenter";
+import {default as mouseleave} from "d3plus-viz/src/on/mouseleave";
+import {default as mousemove} from "d3plus-viz/src/on/mousemove.shape";
 
 /**
     @class Geomap
@@ -44,8 +49,19 @@ export default class Geomap extends Viz {
     this._shape = constant("Circle");
     this._shapeConfig = assign(this._shapeConfig, {
       Path: {
-        fill: "#f5f5f3",
-        stroke: "#b1babe",
+        fill: d => {
+          if (d.data && this._colorScale) {
+            const c = this._colorScale(d.data);
+            if (c !== undefined && c !== null) return this._colorScaleClass._colorScale(c);
+          }
+          return "#f5f5f3";
+        },
+        on: {
+          mouseenter: d => d.data ? mouseenter.bind(this)(d) : null,
+          mousemove: d => d.data ? mousemove.bind(this)(d) : null,
+          mouseleave: d => d.data ? mouseleave.bind(this)(d) : null
+        },
+        stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
         strokeWidth: 1
       }
     });
@@ -56,6 +72,7 @@ export default class Geomap extends Viz {
 
     this._topojson = false;
     this._topojsonFilter = d => !["010"].includes(d.id);
+    this._topojsonId = accessor("id");
 
     this._zoom = true;
     this._zoomBehavior = zoom();
@@ -288,7 +305,25 @@ export default class Geomap extends Viz {
     const path = this._path = d3Geo.geoPath()
       .projection(this._projection);
 
-    const pointData = this._filteredData.filter((d, i) => this._point(d, i) instanceof Array);
+    const pointData = this._filteredData
+      .filter((d, i) => this._point(d, i) instanceof Array);
+
+    const pathData = this._filteredData
+      .filter((d, i) => !(this._point(d, i) instanceof Array))
+      .reduce((obj, d) => {
+        obj[this._id(d)] = d;
+        return obj;
+      }, {});
+
+    const topoData = coordData.features.reduce((arr, feature) => {
+      const id = this._topojsonId(feature);
+      arr.push({
+        data: pathData[id],
+        feature,
+        id
+      });
+      return arr;
+    }, []);
 
     const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
       .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
@@ -473,11 +508,12 @@ export default class Geomap extends Viz {
     // }
 
     this._shapes.push(new Path()
-      .config(this._shapeConfig.Path)
-      .data(coordData.features)
-      .d(path)
+      .data(topoData)
+      .d(d => path(d.feature))
       .select(pathGroup.node())
       .x(0).y(0)
+      .config(this._shapeConfig)
+      .config(this._shapeConfig.Path)
       .render());
 
     let pointGroup = this._zoomGroup.selectAll("g.d3plus-geomap-pins").data([0]);
@@ -692,6 +728,16 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
   */
   topojsonKey(_) {
     return arguments.length ? (this._topojsonKey = _, this) : this._topojsonKey;
+  }
+
+  /**
+      @memberof Geomap
+      @desc Specifies the accessor for the unique ID inside of each topojson object.
+      @param {String|Function} *value* = "id"
+      @chainable
+  */
+  topojsonId(_) {
+    return arguments.length ? (this._topojsonId = typeof _ === "function" ? _ : accessor(_), this, this) : this._topojsonId;
   }
 
   /**
