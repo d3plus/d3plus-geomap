@@ -231,12 +231,16 @@ export default class Geomap extends Viz {
       .attr("opacity", 0)
       .attr("width", width)
       .attr("height", height)
+      .attr("x", this._margin.left)
+      .attr("y", this._margin.top)
       .style("background-color", this._ocean || "transparent")
       .merge(this._geomapGroup);
     this._geomapGroup.transition(this._transition)
       .attr("opacity", 1)
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("x", this._margin.left)
+      .attr("y", this._margin.top);
 
     const ocean = this._geomapGroup.selectAll("rect.d3plus-geomap-ocean").data([0]);
     ocean.enter().append("rect")
