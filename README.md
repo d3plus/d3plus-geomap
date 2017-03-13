@@ -12,7 +12,7 @@ A reusable geo map built on D3 and Topojson
 If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-geomap/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a [custom bundle using Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-geomap.v0.3.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-geomap.v0.4.full.min.js"></script>
 ```
 
 
@@ -21,7 +21,7 @@ If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest rel
 
 ### Geomap ⇐ <code>Viz</code>
 **Kind**: global class  
-**Extends:** <code>Viz</code>  
+**Extends**: <code>Viz</code>  
 
 * [Geomap](#Geomap) ⇐ <code>Viz</code>
     * [new Geomap()](#new_Geomap_new)
@@ -38,6 +38,7 @@ If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest rel
     * [.topojson(*data*, [*formatter*])](#Geomap.topojson) ↩︎
     * [.topojsonFilter([*value*])](#Geomap.topojsonFilter) ↩︎
     * [.topojsonKey(*value*)](#Geomap.topojsonKey) ↩︎
+    * [.topojsonId(*value*)](#Geomap.topojsonId) ↩︎
     * [.zoom([*value*])](#Geomap.zoom) ↩︎
 
 <a name="new_Geomap_new"></a>
@@ -211,6 +212,18 @@ If *value* is specified, sets the topojson object key to be used and returns the
 | --- | --- |
 | *value* | <code>String</code> | 
 
+<a name="Geomap.topojsonId"></a>
+
+#### Geomap.topojsonId(*value*) ↩︎
+Specifies the accessor for the unique ID inside of each topojson object.
+
+**Kind**: static method of <code>[Geomap](#Geomap)</code>  
+**Chainable**  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| *value* | <code>String</code> &#124; <code>function</code> | = "id" |
+
 <a name="Geomap.zoom"></a>
 
 #### Geomap.zoom([*value*]) ↩︎
@@ -225,4 +238,4 @@ If *value* is specified, toggles the zoom behavior and returns the current class
 
 
 
-###### <sub>Documentation generated on Thu, 16 Feb 2017 19:59:08 GMT</sub>
+###### <sub>Documentation generated on Mon, 13 Mar 2017 18:55:34 GMT</sub>
