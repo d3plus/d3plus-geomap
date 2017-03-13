@@ -30,8 +30,8 @@
     "d3-tile": "0.0.4",
     "d3-zoom": "^1.1.3",
     "d3plus-common": "^0.6.14",
-    "d3plus-shape": "^0.12.6",
-    "d3plus-viz": "^0.6.4",
+    "d3plus-shape": "^0.12.7",
+    "d3plus-viz": "^0.7.0",
     "topojson-client": "^2.1.0"
   },
   "scripts": {
@@ -44,6 +44,6 @@
     "test": "d3plus-test"
   },
   "devDependencies": {
-    "d3plus-dev": "^0.2.1"
+    "d3plus-dev": "^0.3.1"
   }
 }
