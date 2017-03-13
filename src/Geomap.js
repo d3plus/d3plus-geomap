@@ -288,7 +288,7 @@ export default class Geomap extends Viz {
     const path = this._path = d3Geo.geoPath()
       .projection(this._projection);
 
-    const pointData = this._filteredData.filter((d, i) => this._shape(d, i) !== "Path");
+    const pointData = this._filteredData.filter((d, i) => this._point(d, i) instanceof Array);
 
     const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
       .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
