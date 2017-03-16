@@ -318,6 +318,7 @@ export default class Geomap extends Viz {
     const topoData = coordData.features.reduce((arr, feature) => {
       const id = this._topojsonId(feature);
       arr.push({
+        __d3plus__: true,
         data: pathData[id],
         feature,
         id
