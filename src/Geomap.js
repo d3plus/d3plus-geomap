@@ -513,8 +513,7 @@ export default class Geomap extends Viz {
       .d(d => path(d.feature))
       .select(pathGroup.node())
       .x(0).y(0)
-      .config(this._shapeConfig)
-      .config(this._shapeConfig.Path)
+      .config(this._shapeConfigPrep("Path"))
       .render());
 
     let pointGroup = this._zoomGroup.selectAll("g.d3plus-geomap-pins").data([0]);
@@ -523,8 +522,7 @@ export default class Geomap extends Viz {
       .merge(pointGroup);
 
     const circles = new Circle()
-      .config(this._shapeConfig)
-      .config(this._shapeConfig.Circle || {})
+    .config(this._shapeConfigPrep("Circle"))
       .data(pointData)
       .r((d, i) => r(this._pointSize(d, i)))
       .select(pointGroup.node())
