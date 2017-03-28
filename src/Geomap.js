@@ -389,7 +389,17 @@ export default class Geomap extends Viz {
 
       }, []);
 
-      let p = this._padding;
+      let pad = this._padding;
+      if (typeof pad === "string") {
+        pad = pad.match(/([-\d\.]+)/g).map(Number);
+        if (pad.length === 3) pad.push(pad[1]);
+        if (pad.length === 2) pad = pad.concat(pad);
+        if (pad.length === 1) pad = Array(4).fill(pad);
+      }
+      else {
+        pad = Array(4).fill(pad);
+      }
+
       if (!extentBounds.features.length && pointData.length) {
 
         const bounds = [[undefined, undefined], [undefined, undefined]];
@@ -413,13 +423,14 @@ export default class Geomap extends Viz {
             }
           }]
         };
-        p = max(pointData, (d, i) => r(this._pointSize(d, i)) + p);
+        const maxSize = max(pointData, (d, i) => r(this._pointSize(d, i)));
+        pad = pad.map(p => p + maxSize);
 
       }
 
       this._projection = this._projection
         .fitExtent(
-          extentBounds.features.length ? [[p, p], [width - p * 2, height - p * 2]] : [[0, 0], [width, height]],
+          extentBounds.features.length ? [[pad[3], pad[0]], [width - pad[1] * 2, height - pad[2] * 2]] : [[0, 0], [width, height]],
           extentBounds.features.length ? extentBounds : {type: "Sphere"}
         );
 
@@ -631,8 +642,8 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the topojson outer padding and returns the current class instance. If *value* is not specified, returns the current topojson outer padding.
-      @param {Number} [*value* = 20]
+      @desc Defines the outer padding between the edge of the visualization and the shapes drawn. The value can either be a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
+      @param {Number|String} [*value* = 20]
       @chainable
   */
   padding(_) {
