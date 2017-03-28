@@ -435,6 +435,7 @@ export default class Geomap extends Viz {
         );
 
       this._zoomBehavior
+        .extent([[0, 0], [width, height]])
         .scaleExtent([1, 16])
         .translateExtent([[0, 0], [width, height]])
         .on("zoom", this._zoomed.bind(this));
