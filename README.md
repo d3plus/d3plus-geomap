@@ -56,7 +56,7 @@ If *value* is specified, filters the features used to calculate the initial proj
 
 | Param | Type |
 | --- | --- |
-| [*value*] | <code>Number</code> &#124; <code>String</code> &#124; <code>Array</code> &#124; <code>function</code> | 
+| [*value*] | <code>Number</code> \| <code>String</code> \| <code>Array</code> \| <code>function</code> | 
 
 <a name="Geomap.fitKey"></a>
 
@@ -84,7 +84,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
 | Param | Type | Description |
 | --- | --- | --- |
-| *data* | <code>Object</code> &#124; <code>String</code> | = `undefined` |
+| *data* | <code>Object</code> \| <code>String</code> | = `undefined` |
 | [*formatter*] | <code>function</code> |  |
 
 <a name="Geomap.ocean"></a>
@@ -102,14 +102,14 @@ If *value* is specified, sets the ocean color and returns the current class inst
 <a name="Geomap.padding"></a>
 
 #### Geomap.padding([*value*]) ↩︎
-If *value* is specified, sets the topojson outer padding and returns the current class instance. If *value* is not specified, returns the current topojson outer padding.
+Defines the outer padding between the edge of the visualization and the shapes drawn. The value can either be a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
 
 **Kind**: static method of <code>[Geomap](#Geomap)</code>  
 **Chainable**  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [*value*] | <code>Number</code> | <code>20</code> | 
+| [*value*] | <code>Number</code> \| <code>String</code> | <code>20</code> | 
 
 <a name="Geomap.point"></a>
 
@@ -121,7 +121,7 @@ If *value* is specified, sets the point accessor to the specified function or ar
 
 | Param | Type |
 | --- | --- |
-| [*value*] | <code>function</code> &#124; <code>Array</code> | 
+| [*value*] | <code>function</code> \| <code>Array</code> | 
 
 <a name="Geomap.pointSize"></a>
 
@@ -133,7 +133,7 @@ If *value* is specified, sets the point size accessor to the specified function 
 
 | Param | Type |
 | --- | --- |
-| [*value*] | <code>function</code> &#124; <code>Number</code> | 
+| [*value*] | <code>function</code> \| <code>Number</code> | 
 
 <a name="Geomap.pointSizeMax"></a>
 
@@ -185,7 +185,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
 | Param | Type | Description |
 | --- | --- | --- |
-| *data* | <code>Object</code> &#124; <code>String</code> | = [] |
+| *data* | <code>Object</code> \| <code>String</code> | = [] |
 | [*formatter*] | <code>function</code> |  |
 
 <a name="Geomap.topojsonFilter"></a>
@@ -198,7 +198,7 @@ If *value* is specified, filters the features used to calculate the initial proj
 
 | Param | Type |
 | --- | --- |
-| [*value*] | <code>Number</code> &#124; <code>String</code> &#124; <code>Array</code> &#124; <code>function</code> | 
+| [*value*] | <code>Number</code> \| <code>String</code> \| <code>Array</code> \| <code>function</code> | 
 
 <a name="Geomap.topojsonKey"></a>
 
@@ -222,7 +222,7 @@ Specifies the accessor for the unique ID inside of each topojson object.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| *value* | <code>String</code> &#124; <code>function</code> | = "id" |
+| *value* | <code>String</code> \| <code>function</code> | = "id" |
 
 <a name="Geomap.zoom"></a>
 
@@ -238,4 +238,4 @@ If *value* is specified, toggles the zoom behavior and returns the current class
 
 
 
-###### <sub>Documentation generated on Thu, 16 Mar 2017 15:24:11 GMT</sub>
+###### <sub>Documentation generated on Tue, 28 Mar 2017 02:00:56 GMT</sub>
