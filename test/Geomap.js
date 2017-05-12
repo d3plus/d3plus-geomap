@@ -1,14 +1,10 @@
-import {test} from "tape";
+import zora from "zora";
 import {default as Geomap} from "../src/Geomap.js";
 
-test("Geomap", assert => {
+export default zora()
+  .test("Geomap", function *(assert) {
 
-  new Geomap()
-    .render(() => {
+    yield cb => new Geomap().render(cb);
+    assert.ok(true, "function success");
 
-      assert.true(true, "function success");
-      assert.end();
-
-    });
-
-});
+  });
