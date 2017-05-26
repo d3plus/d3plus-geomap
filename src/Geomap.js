@@ -7,7 +7,7 @@ import {tile} from "d3-tile";
 import {zoom, zoomTransform} from "d3-zoom";
 import {feature} from "topojson-client";
 
-import {accessor, assign, constant} from "d3plus-common";
+import {accessor, assign, configPrep, constant} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
 
@@ -54,7 +54,7 @@ export default class Geomap extends Viz {
         },
         on: {
           mouseenter: d => d.data ? this._on.mouseenter.bind(this)(d) : null,
-          mousemove: d => d.data ? this._on["mousemove.shape"].bind(this)(d) : null,
+          mousemove: d => d.data ? this._on.mousemove.bind(this)(d) : null,
           mouseleave: d => d.data ? this._on.mouseleave.bind(this)(d) : null
         },
         stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
@@ -525,7 +525,7 @@ export default class Geomap extends Viz {
       .d(d => path(d.feature))
       .select(pathGroup.node())
       .x(0).y(0)
-      .config(this._shapeConfigPrep("Path"))
+      .config(configPrep.bind(this)(this._shapeConfig, "shape", "Path"))
       .render());
 
     let pointGroup = this._zoomGroup.selectAll("g.d3plus-geomap-pins").data([0]);
@@ -534,7 +534,7 @@ export default class Geomap extends Viz {
       .merge(pointGroup);
 
     const circles = new Circle()
-    .config(this._shapeConfigPrep("Circle"))
+      .config(configPrep.bind(this)(this._shapeConfig, "shape", "Circle"))
       .data(pointData)
       .r((d, i) => r(this._pointSize(d, i)))
       .select(pointGroup.node())
