@@ -53,9 +53,9 @@ export default class Geomap extends Viz {
           return "#f5f5f3";
         },
         on: {
-          mouseenter: d => d.data ? this._on.mouseenter.bind(this)(d) : null,
-          mousemove: d => d.data ? this._on["mousemove.shape"].bind(this)(d) : null,
-          mouseleave: d => d.data ? this._on.mouseleave.bind(this)(d) : null
+          "mouseenter": d => d.data ? this._on.mouseenter.bind(this)(d) : null,
+          "mousemove.shape": d => d.data ? this._on["mousemove.shape"].bind(this)(d) : null,
+          "mouseleave": d => d.data ? this._on.mouseleave.bind(this)(d) : null
         },
         stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
         strokeWidth: 1
