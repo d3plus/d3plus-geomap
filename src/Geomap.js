@@ -46,8 +46,9 @@ export default class Geomap extends Viz {
     this._shapeConfig = assign(this._shapeConfig, {
       Path: {
         fill: d => {
-          if (d.data && this._colorScale) {
-            const c = this._colorScale(d.data);
+          if (this._colorScale && !this._coordData.features.includes(d)) {
+            const c = this._colorScale(d);
+            console.log(d, c, this._colorScaleClass._colorScale.range());
             if (c !== undefined && c !== null) return this._colorScaleClass._colorScale(c);
           }
           return "#f5f5f3";
