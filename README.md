@@ -179,4 +179,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 ---
 
-###### <sub>Documentation generated on Thu, 22 Jun 2017 16:47:57 GMT</sub>
+###### <sub>Documentation generated on Thu, 22 Jun 2017 17:04:58 GMT</sub>
