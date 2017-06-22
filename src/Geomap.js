@@ -53,9 +53,9 @@ export default class Geomap extends Viz {
           return "#f5f5f3";
         },
         on: {
-          "mouseenter": d => d ? this._on.mouseenter.bind(this)(d) : null,
-          "mousemove.shape": d => d ? this._on["mousemove.shape"].bind(this)(d) : null,
-          "mouseleave": d => d ? this._on.mouseleave.bind(this)(d) : null
+          "mouseenter": d => !this._coordData.features.includes(d) ? this._on.mouseenter.bind(this)(d) : null,
+          "mousemove.shape": d => !this._coordData.features.includes(d) ? this._on["mousemove.shape"].bind(this)(d) : null,
+          "mouseleave": d => !this._coordData.features.includes(d) ? this._on.mouseleave.bind(this)(d) : null
         },
         stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
         strokeWidth: 1
@@ -296,7 +296,7 @@ export default class Geomap extends Viz {
       return feature(topo, topo.objects[k]);
     }
 
-    const coordData = this._topojson
+    const coordData = this._coordData = this._topojson
                     ? topo2feature(this._topojson, this._topojsonKey)
                     : {type: "FeatureCollection", features: []};
 
