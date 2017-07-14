@@ -297,8 +297,8 @@ export default class Geomap extends Viz {
     }
 
     const coordData = this._coordData = this._topojson
-                    ? topo2feature(this._topojson, this._topojsonKey)
-                    : {type: "FeatureCollection", features: []};
+      ? topo2feature(this._topojson, this._topojsonKey)
+      : {type: "FeatureCollection", features: []};
 
     if (this._topojsonFilter) coordData.features = coordData.features.filter(this._topojsonFilter);
 
