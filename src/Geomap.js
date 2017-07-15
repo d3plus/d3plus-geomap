@@ -12,8 +12,13 @@ import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
 
 /**
+    @external Viz
+    @see https://github.com/d3plus/d3plus-viz#Viz
+*/
+
+/**
     @class Geomap
-    @extends Viz
+    @extends external:Viz
     @desc Creates a geographical map with zooming, panning, image tiles, and the ability to layer choropleth paths and coordinate points. See [this example](https://d3plus.org/examples/d3plus-geomap/getting-started/) for help getting started.
 */
 export default class Geomap extends Viz {
