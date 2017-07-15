@@ -14,7 +14,7 @@ import {dataLoad as load, Viz} from "d3plus-viz";
 /**
     @class Geomap
     @extends Viz
-    @desc Creates SVG paths and coordinate points based on an array of data. See [this example](https://d3plus.org/examples/d3plus-geomap/getting-started/) for help getting started using the geomap generator.
+    @desc Creates a geographical map with zooming, panning, image tiles, and the ability to layer choropleth paths and coordinate points. See [this example](https://d3plus.org/examples/d3plus-geomap/getting-started/) for help getting started.
 */
 export default class Geomap extends Viz {
 
@@ -593,7 +593,9 @@ export default class Geomap extends Viz {
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, filters the features used to calculate the initial projection fitExtent based on an ID, array of IDs, or filter function and returns the current class instance. If *value* is not specified, returns the current bounds filter.
+      @desc Topojson files sometimes include small geographies that negatively impact how the library determines the default zoom level (for example, a small island or territory far off the coast that is barely visible to the eye). The fitFilter method can be used to remove specific geographies from the logic used to determine the zooming.
+
+The *value* passed can be a single id to remove, an array of ids, or a filter function. Take a look at the [Choropleth Example](http://d3plus.org/examples/d3plus-geomap/getting-started/) to see it in action.
       @param {Number|String|Array|Function} [*value*]
       @chainable
   */
@@ -608,7 +610,9 @@ export default class Geomap extends Viz {
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
+      @desc If the topojson being used to determine the zoom fit (either the main [topojson](#Geomap.topojson) object or the [fitObject](#Geomap.fitObject)) contains multiple geographical sets (for example, a file containing state and county boundaries), use this method to indentify which set to use for the zoom fit.
+
+If not specified, the first key in the *Array* returned from using `Object.keys` on the topojson will be used.
       @param {String} *value*
       @chainable
   */
@@ -618,11 +622,9 @@ export default class Geomap extends Viz {
 
   /**
       @memberof Geomap
-      @desc Sets the topojson to be used for the initial projection [fit extent](https://github.com/d3/d3-geo#projection_fitExtent). The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
+      @desc The topojson to be used for the initial projection [fit extent](https://github.com/d3/d3-geo#projection_fitExtent). The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
 
-Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function should return the final Topojson *Obejct*.
-
-If *data* is not specified, this method returns the current Topojson *Object*, which by default is `undefined`.
+Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function needs to return the final Topojson *Object*.
       @param {Object|String} *data* = `undefined`
       @param {Function} [*formatter*]
       @chainable
@@ -633,7 +635,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the ocean color and returns the current class instance. If *value* is not specified, returns the current ocean color.
+      @desc The color visible behind any shapes drawn on the map projection. By default, a color value matching the color used in the map tiles is used to help mask the loading time needed to render the tiles. Any value CSS color value may be used, including hexidecimal, rgb, rgba, and color strings like `"blue"` and `"transparent"`.
       @param {String} [*value* = "#cdd1d3"]
       @chainable
   */
@@ -643,7 +645,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc Defines the outer padding between the edge of the visualization and the shapes drawn. The value can either be a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
+      @desc The outer padding between the edge of the visualization and the shapes drawn. The value passed can be either a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
       @param {Number|String} [*value* = 20]
       @chainable
   */
@@ -653,7 +655,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the point accessor to the specified function or array and returns the current class instance. Point values are expected in the format [longitude, latitude], which is in-line with d3's expected [x, y] mapping. If *value* is not specified, returns the current point accessor.
+      @desc The accessor to be used when detecting coordinate points in the objects passed to the [data](https://d3plus.org/docs/#Viz.data) method. Values are expected to be in the format `[longitude, latitude]`, which is in-line with d3's expected coordinate mapping.
       @param {Function|Array} [*value*]
       @chainable
   */
@@ -663,7 +665,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the point size accessor to the specified function or number and returns the current class instance. If *value* is not specified, returns the current point size accessor.
+      @desc The accessor or static value to be used for sizing coordinate points.
       @param {Function|Number} [*value*]
       @chainable
   */
@@ -673,7 +675,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the maximum point radius and returns the current class instance. If *value* is not specified, returns the current maximum point radius.
+      @desc The maximum pixel radius used in the scale for sizing coordinate points.
       @param {Number} [*value* = 10]
       @chainable
   */
@@ -683,7 +685,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the minimum point radius and returns the current class instance. If *value* is not specified, returns the current minimum point radius.
+      @desc The minimum pixel radius used in the scale for sizing coordinate points.
       @param {Number} [*value* = 5]
       @chainable
   */
@@ -693,7 +695,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, toggles the map tiles and returns the current class instance. If *value* is not specified, returns the current tiling boolean.
+      @desc Toggles the visibility of the map tiles.
       @param {Boolean} [*value* = true]
       @chainable
   */
@@ -703,11 +705,9 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc Sets the topojson to be used for drawing geographical paths. The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
+      @desc The topojson to be used for drawing geographical paths. The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
 
 Additionally, a custom formatting function can be passed as a second argument to this method. This custom function will be passed the data that has been loaded, as long as there are no errors. This function should return the final Topojson *Obejct*.
-
-If *data* is not specified, this method returns the current Topojson *Object*, which by default is `null`.
       @param {Object|String} *data* = []
       @param {Function} [*formatter*]
       @chainable
@@ -718,7 +718,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, filters the features used to calculate the initial projection fitExtent based on an ID, array of IDs, or filter function and returns the current class instance. If *value* is not specified, returns the current bounds filter.
+      @desc If the [topojson](#Geomap.topojson) being used contains boundaries that should not be shown, this method can be used to filter them out of the final output. The *value* passed can be a single id to remove, an array of ids, or a filter function.
       @param {Number|String|Array|Function} [*value*]
       @chainable
   */
@@ -733,7 +733,9 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, sets the topojson object key to be used and returns the current class instance. If *value* is not specified, returns the current topojson object key.
+      @desc If the [topojson](#Geomap.topojson) contains multiple geographical sets (for example, a file containing state and county boundaries), use this method to indentify which set to use.
+
+If not specified, the first key in the *Array* returned from using `Object.keys` on the topojson will be used.
       @param {String} *value*
       @chainable
   */
@@ -743,7 +745,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc Specifies the accessor for the unique ID inside of each topojson object.
+      @desc The accessor used to map each topojson geometry to it's corresponding [data](https://d3plus.org/docs/#Viz.data) point.
       @param {String|Function} *value* = "id"
       @chainable
   */
@@ -753,7 +755,7 @@ If *data* is not specified, this method returns the current Topojson *Object*, w
 
   /**
       @memberof Geomap
-      @desc If *value* is specified, toggles the zoom behavior and returns the current class instance. If *value* is not specified, returns the current zoom behavior.
+      @desc Toggles the ability to zoom/pan the map.
       @param {Boolean} [*value* = true]
       @chainable
   */
