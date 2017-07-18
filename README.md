@@ -85,6 +85,7 @@ This is a global class, and extends all of the methods and functionality of [<co
     * [.pointSizeMax([*value*])](#Geomap.pointSizeMax) ↩︎
     * [.pointSizeMin([*value*])](#Geomap.pointSizeMin) ↩︎
     * [.tiles([*value*])](#Geomap.tiles) ↩︎
+    * [.tileUrl([url])](#Geomap.tileUrl) ↩︎
     * [.topojson(*data*, [*formatter*])](#Geomap.topojson) ↩︎
     * [.topojsonFilter([*value*])](#Geomap.topojsonFilter) ↩︎
     * [.topojsonKey(*value*)](#Geomap.topojsonKey) ↩︎
@@ -192,7 +193,15 @@ Toggles the visibility of the map tiles.
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojson" href="#Geomap.topojson">#</a> Geomap.**topojson**(*data*, [*formatter*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L720)
+<a name="Geomap.tileUrl" href="#Geomap.tileUrl">#</a> Geomap.**tileUrl**([url]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L717)
+
+By default, d3plus uses the `light_all` style provided by [CARTO](https://carto.com/location-data-services/basemaps/) for it's map tiles. The [tileUrl](https://d3plus.org/docs/#Geomap.tileUrl) method changes the base URL used for fetching the tiles, as long as the string passed contains `{x}`, `{y}`, and `{z}` variables enclosed in curly brackets for the zoom logic to load the correct tiles.
+
+
+This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
+
+
+<a name="Geomap.topojson" href="#Geomap.topojson">#</a> Geomap.**topojson**(*data*, [*formatter*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L730)
 
 The topojson to be used for drawing geographical paths. The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
 
@@ -208,7 +217,7 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-<a name="Geomap.topojsonFilter" href="#Geomap.topojsonFilter">#</a> Geomap.**topojsonFilter**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L730)
+<a name="Geomap.topojsonFilter" href="#Geomap.topojsonFilter">#</a> Geomap.**topojsonFilter**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L740)
 
 If the [topojson](#Geomap.topojson) being used contains boundaries that should not be shown, this method can be used to filter them out of the final output. The *value* passed can be a single id to remove, an array of ids, or a filter function.
 
@@ -216,7 +225,7 @@ If the [topojson](#Geomap.topojson) being used contains boundaries that should n
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojsonKey" href="#Geomap.topojsonKey">#</a> Geomap.**topojsonKey**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L747)
+<a name="Geomap.topojsonKey" href="#Geomap.topojsonKey">#</a> Geomap.**topojsonKey**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L757)
 
 If the [topojson](#Geomap.topojson) contains multiple geographical sets (for example, a file containing state and county boundaries), use this method to indentify which set to use.
 
@@ -226,7 +235,7 @@ If not specified, the first key in the *Array* returned from using `Object.keys`
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojsonId" href="#Geomap.topojsonId">#</a> Geomap.**topojsonId**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L757)
+<a name="Geomap.topojsonId" href="#Geomap.topojsonId">#</a> Geomap.**topojsonId**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L767)
 
 The accessor used to map each topojson geometry to it's corresponding [data](https://d3plus.org/docs/#Viz.data) point.
 
@@ -234,7 +243,7 @@ The accessor used to map each topojson geometry to it's corresponding [data](htt
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.zoom" href="#Geomap.zoom">#</a> Geomap.**zoom**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L767)
+<a name="Geomap.zoom" href="#Geomap.zoom">#</a> Geomap.**zoom**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L777)
 
 Toggles the ability to zoom/pan the map.
 
@@ -245,4 +254,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Sat, 15 Jul 2017 16:08:03 GMT</sub>
+###### <sub>Documentation generated on Tue, 18 Jul 2017 18:43:19 GMT</sub>
