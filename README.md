@@ -57,6 +57,7 @@ chart.render();
 
 ### More Examples
 
+ * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)<sup> ***New***</sup>
  * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
 
 ## API Reference
@@ -254,4 +255,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Tue, 18 Jul 2017 18:43:19 GMT</sub>
+###### <sub>Documentation generated on Tue, 18 Jul 2017 18:44:27 GMT</sub>
