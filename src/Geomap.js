@@ -69,7 +69,7 @@ export default class Geomap extends Viz {
 
     this._tiles = true;
     this._tileGen = tile().wrap(false);
-    this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+    this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png";
 
     this._topojson = false;
     this._topojsonFilter = d => !["010"].includes(d.id);
