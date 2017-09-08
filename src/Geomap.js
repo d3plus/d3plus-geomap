@@ -93,7 +93,7 @@ export default class Geomap extends Viz {
       Renders map tiles based on the current zoom level.
       @private
   */
-  _renderTiles(transform) {
+  _renderTiles(transform, duration = 0) {
 
     let tileData = [];
     if (this._tiles) {
@@ -104,26 +104,32 @@ export default class Geomap extends Viz {
         .translate(transform.apply(this._projection.translate()))
         ();
 
-      this._tileGroup.attr("transform", `scale(${tileData.scale})translate(${tileData.translate})`);
+      this._tileGroup.transition().duration(duration).attr("transform", transform);
 
     }
 
     const images = this._tileGroup.selectAll("image.tile")
         .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
 
-    images.exit().remove();
+    images.exit().transition().duration(duration)
+      .attr("opacity", 0).remove();
+
+    const scale = tileData.scale / transform.k;
 
     images.enter().append("image")
-      .attr("class", "tile")
-      .attr("xlink:href", d => this._tileUrl
-        .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
-        .replace("{z}", d.z)
-        .replace("{x}", d.x)
-        .replace("{y}", d.y))
-      .attr("width", 1)
-      .attr("height", 1)
-      .attr("x", d => d.x)
-      .attr("y", d => d.y);
+        .attr("class", "tile")
+        .attr("opacity", 0)
+        .attr("xlink:href", d => this._tileUrl
+          .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
+          .replace("{z}", d.z)
+          .replace("{x}", d.x)
+          .replace("{y}", d.y))
+        .attr("width", scale)
+        .attr("height", scale)
+        .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
+        .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k)
+      .transition().duration(duration)
+        .attr("opacity", 1);
 
   }
 
