@@ -22,7 +22,7 @@ Additionally, Topojson files may include small geographies that negatively impac
 
 ```js
 chart
-  .topojson("http://d3plus.org/topojson/states.json")
+  .topojson("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
     return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
   });

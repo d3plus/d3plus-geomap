@@ -7,7 +7,7 @@ This examples changes the [tileUrl](https://d3plus.org/docs/#Geomap.tileUrl) to 
 ```js
 new d3plus.Geomap()
   .tileUrl("https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png")
-  .fitObject("http://d3plus.org/topojson/states.json")
+  .fitObject("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
     return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
   })
