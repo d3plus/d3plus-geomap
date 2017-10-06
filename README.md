@@ -12,6 +12,7 @@ If you use NPM, run `npm install d3plus-geomap --save`. Otherwise, download the 
 <script src="https://d3plus.org/js/d3plus-geomap.v0.4.full.min.js"></script>
 ```
 
+[height]: 550
 
 ## Simple Choropleth Map
 
@@ -39,7 +40,7 @@ Additionally, Topojson files may include small geographies that negatively impac
 chart
   .topojson("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
-    return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
+    return ["02", "15", "43", "60", "66", "69", "72", "78"].indexOf(d.id) < 0;
   });
 ```
 
@@ -57,6 +58,7 @@ chart.render();
 
 ### More Examples
 
+ * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)<sup> ***New***</sup>
  * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)<sup> ***New***</sup>
  * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)<sup> ***New***</sup>
  * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
@@ -247,4 +249,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Fri, 08 Sep 2017 18:48:54 GMT</sub>
+###### <sub>Documentation generated on Fri, 06 Oct 2017 19:33:43 GMT</sub>
