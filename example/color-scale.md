@@ -1,3 +1,5 @@
+[height]: 550
+
 # Choropleth w/ Jenks Breaks
 
 The [ColorScale](https://d3plus.org/docs/#ColorScale) used to shade a choropleth defaults to a linear gradient scale. This logic can be changed to other scale methods, including `jenks` distributed breaks and evenly distributed `buckets`. Let's take the population data and chart configuration used in the [Simple Choropleth Example](https://d3plus.org/examples/d3plus-geomap/getting-started/) to create a choropleth w/ Jenks breaks:
@@ -10,7 +12,7 @@ var chart = new d3plus.Geomap()
   .colorScale("population")
   .topojson("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
-    return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
+    return ["02", "15", "43", "60", "66", "69", "72", "78"].indexOf(d.id) < 0;
   });
 ```
 

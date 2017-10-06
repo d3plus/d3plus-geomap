@@ -1,3 +1,5 @@
+[height]: 550
+
 # Choropleth w/ Custom Colors
 
 The default values of the [ColorScale](https://d3plus.org/docs/#ColorScale) used to shade a choropleth can be changed to either a single color value (which will be extrapolated to a full scale) or an array of colors to use for the entire scale. Like most of the components in d3plus, there is a method to pass custom configurations to the underlying [ColorScale](https://d3plus.org/docs/#ColorScale). In this case, the method is called [colorScaleConfig](https://d3plus.org/docs/#Viz.colorScaleConfig). Let's take the population data and chart configuration used in the [Simple Choropleth Example](https://d3plus.org/examples/d3plus-geomap/getting-started/):
@@ -10,7 +12,7 @@ var chart = new d3plus.Geomap()
   .colorScale("population")
   .topojson("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
-    return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
+    return ["02", "15", "43", "60", "66", "69", "72", "78"].indexOf(d.id) < 0;
   });
 ```
 

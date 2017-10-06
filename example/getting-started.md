@@ -1,3 +1,5 @@
+[height]: 550
+
 # Simple Choropleth Map
 
 D3plus makes it really easy to create choropleth maps. Let's make one using a dataset that includes US state ids and population estimates:
@@ -24,7 +26,7 @@ Additionally, Topojson files may include small geographies that negatively impac
 chart
   .topojson("https://d3plus.org/topojson/states.json")
   .fitFilter(function(d) {
-    return ["02", "15", "43", "60", "66", "69", "78"].indexOf(d.id) < 0;
+    return ["02", "15", "43", "60", "66", "69", "72", "78"].indexOf(d.id) < 0;
   });
 ```
 
