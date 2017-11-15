@@ -58,10 +58,10 @@ chart.render();
 
 ### More Examples
 
- * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)<sup> ***New***</sup>
- * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)<sup> ***New***</sup>
- * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)<sup> ***New***</sup>
- * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
+ * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
+ * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
+ * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
+ * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)
 
 ## API Reference
 
@@ -88,6 +88,7 @@ This is a global class, and extends all of the methods and functionality of [<co
     * [.pointSize([*value*])](#Geomap.pointSize) ↩︎
     * [.pointSizeMax([*value*])](#Geomap.pointSizeMax) ↩︎
     * [.pointSizeMin([*value*])](#Geomap.pointSizeMin) ↩︎
+    * [.projection(*projection*)](#Geomap.projection) ↩︎
     * [.tiles([*value*])](#Geomap.tiles) ↩︎
     * [.tileUrl([url])](#Geomap.tileUrl) ↩︎
     * [.topojson(*data*, [*formatter*])](#Geomap.topojson) ↩︎
@@ -188,7 +189,15 @@ The minimum pixel radius used in the scale for sizing coordinate points.
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.tiles" href="#Geomap.tiles">#</a> Geomap.**tiles**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L478)
+<a name="Geomap.projection" href="#Geomap.projection">#</a> Geomap.**projection**(*projection*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L478)
+
+Sets the map projection used when displaying topojson and coordinate points. Any of the standard projections exported from [d3-geo](https://github.com/d3/d3-geo#projections) are accepted, whether as the string name (ie. "geoMercator") or the generator function itself. Map tiles are only usable when the projection is set to Mercator (which is also the default value).
+
+
+This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
+
+
+<a name="Geomap.tiles" href="#Geomap.tiles">#</a> Geomap.**tiles**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L489)
 
 Toggles the visibility of the map tiles.
 
@@ -196,7 +205,7 @@ Toggles the visibility of the map tiles.
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.tileUrl" href="#Geomap.tileUrl">#</a> Geomap.**tileUrl**([url]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L488)
+<a name="Geomap.tileUrl" href="#Geomap.tileUrl">#</a> Geomap.**tileUrl**([url]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L499)
 
 By default, d3plus uses the `light_all` style provided by [CARTO](https://carto.com/location-data-services/basemaps/) for it's map tiles. The [tileUrl](https://d3plus.org/docs/#Geomap.tileUrl) method changes the base URL used for fetching the tiles, as long as the string passed contains `{x}`, `{y}`, and `{z}` variables enclosed in curly brackets for the zoom logic to load the correct tiles.
 
@@ -204,7 +213,7 @@ By default, d3plus uses the `light_all` style provided by [CARTO](https://carto.
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojson" href="#Geomap.topojson">#</a> Geomap.**topojson**(*data*, [*formatter*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L501)
+<a name="Geomap.topojson" href="#Geomap.topojson">#</a> Geomap.**topojson**(*data*, [*formatter*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L512)
 
 The topojson to be used for drawing geographical paths. The value passed should either be a valid Topojson *Object* or a *String* representing a filepath or URL to be loaded.
 
@@ -220,7 +229,7 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-<a name="Geomap.topojsonFilter" href="#Geomap.topojsonFilter">#</a> Geomap.**topojsonFilter**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L511)
+<a name="Geomap.topojsonFilter" href="#Geomap.topojsonFilter">#</a> Geomap.**topojsonFilter**([*value*]) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L522)
 
 If the [topojson](#Geomap.topojson) being used contains boundaries that should not be shown, this method can be used to filter them out of the final output. The *value* passed can be a single id to remove, an array of ids, or a filter function.
 
@@ -228,7 +237,7 @@ If the [topojson](#Geomap.topojson) being used contains boundaries that should n
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojsonKey" href="#Geomap.topojsonKey">#</a> Geomap.**topojsonKey**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L528)
+<a name="Geomap.topojsonKey" href="#Geomap.topojsonKey">#</a> Geomap.**topojsonKey**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L539)
 
 If the [topojson](#Geomap.topojson) contains multiple geographical sets (for example, a file containing state and county boundaries), use this method to indentify which set to use.
 
@@ -238,7 +247,7 @@ If not specified, the first key in the *Array* returned from using `Object.keys`
 This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with other methods of this Class.
 
 
-<a name="Geomap.topojsonId" href="#Geomap.topojsonId">#</a> Geomap.**topojsonId**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L538)
+<a name="Geomap.topojsonId" href="#Geomap.topojsonId">#</a> Geomap.**topojsonId**(*value*) [<>](https://github.com/d3plus/d3plus-geomap/blob/master/src/Geomap.js#L549)
 
 The accessor used to map each topojson geometry to it's corresponding [data](https://d3plus.org/docs/#Viz.data) point.
 
@@ -249,4 +258,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Fri, 06 Oct 2017 19:33:43 GMT</sub>
+###### <sub>Documentation generated on Wed, 15 Nov 2017 22:49:30 GMT</sub>
