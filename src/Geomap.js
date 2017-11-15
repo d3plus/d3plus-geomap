@@ -471,6 +471,17 @@ Additionally, a custom formatting function can be passed as a second argument to
 
   /**
       @memberof Geomap
+      @desc Sets the map projection used when displaying topojson and coordinate points. Any of the standard projections exported from [d3-geo](https://github.com/d3/d3-geo#projections) are accepted, whether as the string name (ie. "geoMercator") or the generator function itself. Map tiles are only usable when the projection is set to Mercator (which is also the default value).
+      @param {Function|String} *projection* = "geoMercator"
+      @chainable
+  */
+  projection(_) {
+    if (_ !== "geoMercator") this._tiles = false;
+    return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_]() : _, this) : this._projection;
+  }
+
+  /**
+      @memberof Geomap
       @desc Toggles the visibility of the map tiles.
       @param {Boolean} [*value* = true]
       @chainable
