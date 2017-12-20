@@ -25,13 +25,13 @@
   "dependencies": {
     "d3-array": "^1.2.1",
     "d3-color": "^1.0.3",
-    "d3-geo": "^1.9.0",
-    "d3-scale": "^1.0.6",
-    "d3-selection": "^1.1.0",
+    "d3-geo": "^1.9.1",
+    "d3-scale": "^1.0.7",
+    "d3-selection": "^1.2.0",
     "d3-tile": "0.0.4",
-    "d3plus-common": "^0.6.23",
-    "d3plus-shape": "^0.13.9",
-    "d3plus-viz": "^0.10.11",
+    "d3plus-common": "^0.6.26",
+    "d3plus-shape": "^0.13.10",
+    "d3plus-viz": "^0.10.13",
     "topojson-client": "^3.0.0"
   },
   "scripts": {
