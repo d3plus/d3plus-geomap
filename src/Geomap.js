@@ -71,7 +71,10 @@ export default class Geomap extends Viz {
           "mousemove.shape": d => !this._coordData.features.includes(d) ? this._on["mousemove.shape"].bind(this)(d) : null,
           "mouseleave": d => !this._coordData.features.includes(d) ? this._on.mouseleave.bind(this)(d) : null
         },
-        stroke: (d, i) => color(this._shapeConfig.Path.fill(d, i)).darker(),
+        stroke: (d, i) => {
+          const c = typeof this._shapeConfig.Path.fill === "function" ? this._shapeConfig.Path.fill(d, i) : this._shapeConfig.Path.fill;
+          return color(c).darker();
+        },
         strokeWidth: 1
       }
     });
