@@ -58,7 +58,7 @@ chart.render();
 
 ### More Examples
 
- * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)<sup> ***New***</sup>
+ * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)
  * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)
  * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
  * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
@@ -259,4 +259,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Thu, 21 Dec 2017 22:22:09 GMT</sub>
+###### <sub>Documentation generated on Wed, 03 Jan 2018 18:09:52 GMT</sub>
