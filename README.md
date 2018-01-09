@@ -259,4 +259,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Wed, 03 Jan 2018 18:09:52 GMT</sub>
+###### <sub>Documentation generated on Tue, 09 Jan 2018 20:05:07 GMT</sub>
