@@ -479,7 +479,7 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   projection(_) {
-    if (_ !== "geoMercator") this._tiles = false;
+    if (arguments.length && _ !== "geoMercator") this._tiles = false;
     return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_]() : _, this) : this._projection;
   }
 
