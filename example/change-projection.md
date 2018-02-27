@@ -21,6 +21,7 @@ We can provide the name of our custom projection to the [projection](http://d3pl
 ```js
 chart
   .projection("geoAlbersUsa")
+  .ocean("transparent")
   .render();
 ```
 
