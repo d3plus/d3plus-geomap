@@ -1,6 +1,6 @@
 # d3plus-geomap
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-geomap.svg?style=flat)](https://www.npmjs.org/package/d3plus-geomap) [![Build Status](https://travis-ci.org/d3plus/d3plus-geomap.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-geomap) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-geomap.svg?style=flat)](https://david-dm.org/d3plus/d3plus-geomap) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat)](https://gitter.im/d3plus/)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-geomap.svg?style=flat)](https://www.npmjs.org/package/d3plus-geomap) [![Build Status](https://travis-ci.org/d3plus/d3plus-geomap.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-geomap) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-geomap.svg?style=flat)](https://david-dm.org/d3plus/d3plus-geomap) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress-0%25-red.svg?style=flat)](https://github.com/d3plus/d3plus-geomap/projects/1)
 
 A reusable geo map built on D3 and Topojson
 
@@ -19,7 +19,7 @@ If you use NPM, run `npm install d3plus-geomap --save`. Otherwise, download the 
 D3plus makes it really easy to create choropleth maps. Let's make one using a dataset that includes US state ids and population estimates:
 
 ```js
-const popData = [{id: "01", population: 4830620}, {id: "02", population: 733375}, {id: "04", population: 6641928}, {id: "05", population: 2958208}, {id: "06", population: 38421464}, {id: "08", population: 5278906}, {id: "09", population: 3593222}, {id: "10", population: 926454}, {id: "11", population: 647484}, {id: "12", population: 19645772}, {id: "13", population: 10006693}, {id: "15", population: 1406299}, {id: "16", population: 1616547}, {id: "17", population: 12873761}, {id: "18", population: 6568645}, {id: "19", population: 3093526}, {id: "20", population: 2892987}, {id: "21", population: 4397353}, {id: "22", population: 4625253}, {id: "23", population: 1329100}, {id: "24", population: 5930538}, {id: "25", population: 6705586}, {id: "26", population: 9900571}, {id: "27", population: 5419171}, {id: "28", population: 2988081}, {id: "29", population: 6045448}, {id: "30", population: 1014699}, {id: "31", population: 1869365}, {id: "32", population: 2798636}, {id: "33", population: 1324201}, {id: "34", population: 8904413}, {id: "35", population: 2084117}, {id: "36", population: 19673174}, {id: "37", population: 9845333}, {id: "38", population: 721640}, {id: "39", population: 11575977}, {id: "40", population: 3849733}, {id: "41", population: 3939233}, {id: "42", population: 12779559}, {id: "44", population: 1053661}, {id: "45", population: 4777576}, {id: "46", population: 843190}, {id: "47", population: 6499615}, {id: "48", population: 26538614}, {id: "49", population: 2903379}, {id: "50", population: 626604}, {id: "51", population: 8256630}, {id: "53", population: 6985464}, {id: "54", population: 1851420}, {id: "55", population: 5742117}, {id: "56", population: 579679}, {id: "72", population: 3583073}];
+var popData = [{id: "01", population: 4830620}, {id: "02", population: 733375}, {id: "04", population: 6641928}, {id: "05", population: 2958208}, {id: "06", population: 38421464}, {id: "08", population: 5278906}, {id: "09", population: 3593222}, {id: "10", population: 926454}, {id: "11", population: 647484}, {id: "12", population: 19645772}, {id: "13", population: 10006693}, {id: "15", population: 1406299}, {id: "16", population: 1616547}, {id: "17", population: 12873761}, {id: "18", population: 6568645}, {id: "19", population: 3093526}, {id: "20", population: 2892987}, {id: "21", population: 4397353}, {id: "22", population: 4625253}, {id: "23", population: 1329100}, {id: "24", population: 5930538}, {id: "25", population: 6705586}, {id: "26", population: 9900571}, {id: "27", population: 5419171}, {id: "28", population: 2988081}, {id: "29", population: 6045448}, {id: "30", population: 1014699}, {id: "31", population: 1869365}, {id: "32", population: 2798636}, {id: "33", population: 1324201}, {id: "34", population: 8904413}, {id: "35", population: 2084117}, {id: "36", population: 19673174}, {id: "37", population: 9845333}, {id: "38", population: 721640}, {id: "39", population: 11575977}, {id: "40", population: 3849733}, {id: "41", population: 3939233}, {id: "42", population: 12779559}, {id: "44", population: 1053661}, {id: "45", population: 4777576}, {id: "46", population: 843190}, {id: "47", population: 6499615}, {id: "48", population: 26538614}, {id: "49", population: 2903379}, {id: "50", population: 626604}, {id: "51", population: 8256630}, {id: "53", population: 6985464}, {id: "54", population: 1851420}, {id: "55", population: 5742117}, {id: "56", population: 579679}, {id: "72", population: 3583073}];
 ```
 
 After initializing a new [Geomap](https://d3plus.org/docs/#Geomap) instance, we need to pass our `popData` array to the [data](https://d3plus.org/docs/#Viz.data) method and tell [colorScale](https://d3plus.org/docs/#Viz.colorScale) which key in our data array to use as the basis for the color scale:
@@ -58,11 +58,13 @@ chart.render();
 
 ### More Examples
 
- * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)
+ * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)<sup> ***New***</sup>
+ * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)<sup> ***New***</sup>
+ * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)<sup> ***New***</sup>
  * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)
- * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
+ * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)<sup> ***New***</sup>
  * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
- * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
+ * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
 
 ## API Reference
 
@@ -259,4 +261,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Tue, 09 Jan 2018 20:05:07 GMT</sub>
+###### <sub>Documentation generated on Tue, 27 Feb 2018 22:25:12 GMT</sub>
