@@ -229,53 +229,56 @@ export default class Geomap extends Viz {
         type: "FeatureCollection",
         features: this._fitFilter ? fitData.features.filter(this._fitFilter) : fitData.features.slice()
       };
-
       extentBounds.features = extentBounds.features.reduce((arr, d) => {
 
-        const reduced = {
-          type: d.type,
-          id: d.id,
-          geometry: {
-            coordinates: d.geometry.coordinates,
-            type: d.geometry.type
+        if (d.geometry) {
+
+          const reduced = {
+            type: d.type,
+            id: d.id,
+            geometry: {
+              coordinates: d.geometry.coordinates,
+              type: d.geometry.type
+            }
+          };
+
+          if (d.geometry.coordinates.length > 1) {
+
+            const areas = [],
+                  distances = [];
+
+            d.geometry.coordinates.forEach(c => {
+
+              reduced.geometry.coordinates = [c];
+              areas.push(path.area(reduced));
+
+            });
+
+            reduced.geometry.coordinates = [d.geometry.coordinates[areas.indexOf(max(areas))]];
+            const center = path.centroid(reduced);
+
+            d.geometry.coordinates.forEach(c => {
+
+              reduced.geometry.coordinates = [c];
+              distances.push(pointDistance(path.centroid(reduced), center));
+
+            });
+
+            const distCutoff = quantile(areas.reduce((arr, dist, i) => {
+              if (dist) arr.push(areas[i] / dist);
+              return arr;
+            }, []), 0.9);
+
+            reduced.geometry.coordinates = d.geometry.coordinates.filter((c, i) => {
+              const dist = distances[i];
+              return dist === 0 || areas[i] / dist >= distCutoff;
+            });
+
           }
-        };
 
-        if (d.geometry.coordinates.length > 1) {
-
-          const areas = [],
-                distances = [];
-
-          d.geometry.coordinates.forEach(c => {
-
-            reduced.geometry.coordinates = [c];
-            areas.push(path.area(reduced));
-
-          });
-
-          reduced.geometry.coordinates = [d.geometry.coordinates[areas.indexOf(max(areas))]];
-          const center = path.centroid(reduced);
-
-          d.geometry.coordinates.forEach(c => {
-
-            reduced.geometry.coordinates = [c];
-            distances.push(pointDistance(path.centroid(reduced), center));
-
-          });
-
-          const distCutoff = quantile(areas.reduce((arr, dist, i) => {
-            if (dist) arr.push(areas[i] / dist);
-            return arr;
-          }, []), 0.9);
-
-          reduced.geometry.coordinates = d.geometry.coordinates.filter((c, i) => {
-            const dist = distances[i];
-            return dist === 0 || areas[i] / dist >= distCutoff;
-          });
+          arr.push(reduced);
 
         }
-
-        arr.push(reduced);
         return arr;
 
       }, []);
