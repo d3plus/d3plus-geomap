@@ -58,6 +58,7 @@ export default class Geomap extends Viz {
 
     this._shape = constant("Circle");
     this._shapeConfig = assign(this._shapeConfig, {
+      hoverOpacity: 1,
       Path: {
         fill: d => {
           if (this._colorScale && !this._coordData.features.includes(d)) {
