@@ -58,13 +58,13 @@ chart.render();
 
 ### More Examples
 
- * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)<sup> ***New***</sup>
- * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)<sup> ***New***</sup>
- * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)<sup> ***New***</sup>
+ * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)
+ * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)
+ * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)
  * [Changing the Geo Map Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)
- * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)<sup> ***New***</sup>
+ * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
  * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
- * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
+ * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
 
 ## API Reference
 
@@ -261,4 +261,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Thu, 01 Mar 2018 17:09:26 GMT</sub>
+###### <sub>Documentation generated on Thu, 29 Mar 2018 15:07:42 GMT</sub>
