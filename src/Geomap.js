@@ -413,7 +413,14 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   fitObject(_, f) {
-    return arguments.length ? (this._queue.push([load.bind(this), _, f, "fitObject"]), this) : this._fitObject;
+    if (arguments.length) {
+      const prev = this._queue.find(q => q[3] === "fitObject");
+      const d = [load.bind(this), _, f, "fitObject"];
+      if (prev) this._queue[this._queue.indexOf(prev)] = d;
+      else this._queue.push(d);
+      return this;
+    }
+    return this._fitObject;
   }
 
   /**
@@ -517,7 +524,14 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   topojson(_, f) {
-    return arguments.length ? (this._queue.push([load.bind(this), _, f, "topojson"]), this) : this._topojson;
+    if (arguments.length) {
+      const prev = this._queue.find(q => q[3] === "topojson");
+      const d = [load.bind(this), _, f, "topojson"];
+      if (prev) this._queue[this._queue.indexOf(prev)] = d;
+      else this._queue.push(d);
+      return this;
+    }
+    return this._topojson;
   }
 
   /**
