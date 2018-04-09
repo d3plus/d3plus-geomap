@@ -9,7 +9,7 @@ import * as scales from "d3-scale";
 import {tile} from "d3-tile";
 import {feature} from "topojson-client";
 
-import {accessor, assign, configPrep, constant} from "d3plus-common";
+import {accessor, assign, configPrep, constant, parseSides} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
 
@@ -44,8 +44,6 @@ export default class Geomap extends Viz {
     this._fitObject = false;
     this._ocean = "#cdd1d3";
 
-    this._padding = 20;
-
     this._point = accessor("point");
     this._pointSize = constant(1);
     this._pointSizeMax = 10;
@@ -53,6 +51,7 @@ export default class Geomap extends Viz {
     this._pointSizeScale = "linear";
 
     this._projection = d3Geo.geoMercator();
+    this._projectionPadding = 20;
 
     this._rotate = [0, 0];
 
@@ -284,16 +283,7 @@ export default class Geomap extends Viz {
 
       }, []);
 
-      let pad = this._padding;
-      if (typeof pad === "string") {
-        pad = pad.match(/([-\d\.]+)/g).map(Number);
-        if (pad.length === 3) pad.push(pad[1]);
-        if (pad.length === 2) pad = pad.concat(pad);
-        if (pad.length === 1) pad = Array(4).fill(pad);
-      }
-      else {
-        pad = Array(4).fill(pad);
-      }
+      const pad = parseSides(this._projectionPadding);
 
       if (!extentBounds.features.length && pointData.length) {
 
@@ -319,13 +309,16 @@ export default class Geomap extends Viz {
           }]
         };
         const maxSize = max(pointData, (d, i) => r(this._pointSize(d, i)));
-        pad = pad.map(p => p + maxSize);
+        pad.top += maxSize;
+        pad.right += maxSize;
+        pad.bottom += maxSize;
+        pad.left += maxSize;
 
       }
 
       this._projection = this._projection
         .fitExtent(
-          extentBounds.features.length ? [[pad[3], pad[0]], [width - pad[1] * 2, height - pad[2] * 2]] : [[0, 0], [width, height]],
+          extentBounds.features.length ? [[pad.left, pad.top], [width - pad.right, height - pad.bottom]] : [[0, 0], [width, height]],
           extentBounds.features.length ? extentBounds : {type: "Sphere"}
         );
 
@@ -435,16 +428,6 @@ Additionally, a custom formatting function can be passed as a second argument to
 
   /**
       @memberof Geomap
-      @desc The outer padding between the edge of the visualization and the shapes drawn. The value passed can be either a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
-      @param {Number|String} [*value* = 20]
-      @chainable
-  */
-  padding(_) {
-    return arguments.length ? (this._padding = _, this) : this._padding;
-  }
-
-  /**
-      @memberof Geomap
       @desc The accessor to be used when detecting coordinate points in the objects passed to the [data](https://d3plus.org/docs/#Viz.data) method. Values are expected to be in the format `[longitude, latitude]`, which is in-line with d3's expected coordinate mapping.
       @param {Function|Array} [*value*]
       @chainable
@@ -492,6 +475,16 @@ Additionally, a custom formatting function can be passed as a second argument to
   projection(_) {
     if (arguments.length && _ !== "geoMercator") this._tiles = false;
     return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_]() : _, this) : this._projection;
+  }
+
+  /**
+      @memberof Geomap
+      @desc The outer padding between the edge of the visualization and the shapes drawn. The value passed can be either a single number to be used on all sides, or a CSS string pattern (ie. `"20px 0 10px"`).
+      @param {Number|String} [*value* = 20]
+      @chainable
+  */
+  projectionPadding(_) {
+    return arguments.length ? (this._projectionPadding = _, this) : this._projectionPadding;
   }
 
   /**
