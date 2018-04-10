@@ -42,6 +42,7 @@ export default class Geomap extends Viz {
     super();
 
     this._fitObject = false;
+    this._noDataMessage = false;
     this._ocean = "#cdd1d3";
 
     this._point = accessor("point");
