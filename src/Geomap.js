@@ -52,7 +52,7 @@ export default class Geomap extends Viz {
     this._pointSizeScale = "linear";
 
     this._projection = d3Geo.geoMercator();
-    this._projectionPadding = 20;
+    this._projectionPadding = parseSides(20);
 
     this._rotate = [0, 0];
 
@@ -226,11 +226,11 @@ export default class Geomap extends Viz {
 
       const fitData = this._fitObject ? topo2feature(this._fitObject, this._fitKey) : coordData;
 
-      let extentBounds = {
+      this._extentBounds = {
         type: "FeatureCollection",
         features: this._fitFilter ? fitData.features.filter(this._fitFilter) : fitData.features.slice()
       };
-      extentBounds.features = extentBounds.features.reduce((arr, d) => {
+      this._extentBounds.features = this._extentBounds.features.reduce((arr, d) => {
 
         if (d.geometry) {
 
@@ -284,9 +284,7 @@ export default class Geomap extends Viz {
 
       }, []);
 
-      const pad = parseSides(this._projectionPadding);
-
-      if (!extentBounds.features.length && pointData.length) {
+      if (!this._extentBounds.features.length && pointData.length) {
 
         const bounds = [[undefined, undefined], [undefined, undefined]];
         pointData.forEach((d, i) => {
@@ -299,7 +297,7 @@ export default class Geomap extends Viz {
 
         });
 
-        extentBounds = {
+        this._extentBounds = {
           type: "FeatureCollection",
           features: [{
             type: "Feature",
@@ -310,18 +308,12 @@ export default class Geomap extends Viz {
           }]
         };
         const maxSize = max(pointData, (d, i) => r(this._pointSize(d, i)));
-        pad.top += maxSize;
-        pad.right += maxSize;
-        pad.bottom += maxSize;
-        pad.left += maxSize;
+        this._projectionPadding.top += maxSize;
+        this._projectionPadding.right += maxSize;
+        this._projectionPadding.bottom += maxSize;
+        this._projectionPadding.left += maxSize;
 
       }
-
-      this._projection = this._projection
-        .fitExtent(
-          extentBounds.features.length ? [[pad.left, pad.top], [width - pad.right, height - pad.bottom]] : [[0, 0], [width, height]],
-          extentBounds.features.length ? extentBounds : {type: "Sphere"}
-        );
 
       this._zoomBehavior
         .extent([[0, 0], [width, height]])
@@ -331,6 +323,12 @@ export default class Geomap extends Viz {
       this._zoomSet = true;
 
     }
+
+    this._projection = this._projection
+      .fitExtent(
+        this._extentBounds.features.length ? [[this._projectionPadding.left, this._projectionPadding.top], [width - this._projectionPadding.right, height - this._projectionPadding.bottom]] : [[0, 0], [width, height]],
+        this._extentBounds.features.length ? this._extentBounds : {type: "Sphere"}
+      );
 
     this._shapes.push(new Path()
       .data(topoData)
@@ -485,7 +483,7 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   projectionPadding(_) {
-    return arguments.length ? (this._projectionPadding = _, this) : this._projectionPadding;
+    return arguments.length ? (this._projectionPadding = parseSides(_), this) : this._projectionPadding;
   }
 
   /**
