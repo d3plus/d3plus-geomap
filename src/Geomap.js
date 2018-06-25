@@ -58,8 +58,10 @@ export default class Geomap extends Viz {
 
     this._shape = constant("Circle");
     this._shapeConfig = assign(this._shapeConfig, {
+      ariaLabel: (d, i) => `${this._drawLabel(d, i)}, ${this._pointSize(d, i)}`,
       hoverOpacity: 1,
       Path: {
+        ariaLabel: (d, i) => `${this._drawLabel(d, i)}, ${this._colorScale(d, i)}.`,
         fill: d => {
           if (this._colorScale && !this._coordData.features.includes(d)) {
             const c = this._colorScale(d);
