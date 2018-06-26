@@ -61,7 +61,10 @@ export default class Geomap extends Viz {
       ariaLabel: (d, i) => `${this._drawLabel(d, i)}, ${this._pointSize(d, i)}`,
       hoverOpacity: 1,
       Path: {
-        ariaLabel: (d, i) => `${this._drawLabel(d, i)}, ${this._colorScale(d, i)}.`,
+        ariaLabel: (d, i) => {
+          const validColorScale = this._colorScale ? `, ${this._colorScale(d, i)}` : "";
+          return `${this._drawLabel(d, i)}, ${validColorScale}.`;
+        },
         fill: d => {
           if (this._colorScale && !this._coordData.features.includes(d)) {
             const c = this._colorScale(d);
