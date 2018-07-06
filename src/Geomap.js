@@ -118,7 +118,7 @@ export default class Geomap extends Viz {
     }
 
     const images = this._tileGroup.selectAll("image.tile")
-        .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
+      .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
 
     images.exit().transition().duration(duration)
       .attr("opacity", 0).remove();
@@ -126,19 +126,25 @@ export default class Geomap extends Viz {
     const scale = tileData.scale / transform.k;
 
     images.enter().append("image")
-        .attr("class", "tile")
-        .attr("opacity", 0)
-        .attr("xlink:href", d => this._tileUrl
-          .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
-          .replace("{z}", d.z)
-          .replace("{x}", d.x)
-          .replace("{y}", d.y))
-        .attr("width", scale)
-        .attr("height", scale)
-        .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
-        .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k)
+      .attr("class", "tile")
+      .attr("opacity", 0)
+      .attr("xlink:href", d => this._tileUrl
+        .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
+        .replace("{z}", d.z)
+        .replace("{x}", d.x)
+        .replace("{y}", d.y))
+      .attr("width", scale)
+      .attr("height", scale)
+      .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
+      .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k)
       .transition().duration(duration)
-        .attr("opacity", 1);
+      .attr("opacity", 1);
+
+    images
+      .attr("width", scale)
+      .attr("height", scale)
+      .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
+      .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k);
 
   }
 
@@ -172,11 +178,11 @@ export default class Geomap extends Viz {
 
     const ocean = this._container.selectAll("rect.d3plus-geomap-ocean").data([0]);
     ocean.enter().append("rect")
-        .attr("class", "d3plus-geomap-ocean")
+      .attr("class", "d3plus-geomap-ocean")
       .merge(ocean)
-        .attr("width", width)
-        .attr("height", height)
-        .attr("fill", this._ocean || "transparent");
+      .attr("width", width)
+      .attr("height", height)
+      .attr("fill", this._ocean || "transparent");
 
     this._tileGroup = this._container.selectAll("g.d3plus-geomap-tileGroup").data([0]);
     this._tileGroup = this._tileGroup.enter().append("g")
