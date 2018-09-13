@@ -340,8 +340,6 @@ export default class Geomap extends Viz {
         .scaleExtent([1, this._zoomMax])
         .translateExtent([[0, 0], [width, height]]);
 
-      this._zoomSet = true;
-
     }
 
     this._projection = this._projection
