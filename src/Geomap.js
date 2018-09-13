@@ -241,6 +241,8 @@ export default class Geomap extends Viz {
     const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
       .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
       .range([this._pointSizeMin, this._pointSizeMax]);
+    
+    if (this._fitObject || this._fitFilter || this._fitKey || this._topojson || this._topojsonFilter || this._topojsonKey) this._zoomSet = false;
 
     if (!this._zoomSet) {
 
@@ -339,6 +341,8 @@ export default class Geomap extends Viz {
         .extent([[0, 0], [width, height]])
         .scaleExtent([1, this._zoomMax])
         .translateExtent([[0, 0], [width, height]]);
+
+      this._zoomSet = true;
 
     }
 
