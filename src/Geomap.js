@@ -241,8 +241,6 @@ export default class Geomap extends Viz {
     const r = scales[`scale${this._pointSizeScale.charAt(0).toUpperCase()}${this._pointSizeScale.slice(1)}`]()
       .domain(extent(pointData, (d, i) => this._pointSize(d, i)))
       .range([this._pointSizeMin, this._pointSizeMax]);
-    
-    if (this._fitObject || this._fitFilter || this._fitKey || this._topojson || this._topojsonFilter || this._topojsonKey) this._zoomSet = false;
 
     if (!this._zoomSet) {
 
@@ -400,6 +398,7 @@ The *value* passed can be a single id to remove, an array of ids, or a filter fu
     if (arguments.length) {
       if (typeof _ === "function") return this._fitFilter = _, this;
       if (!(_ instanceof Array)) _ = [_];
+      this._zoomSet = false;
       return this._fitFilter = d => _.includes(d.id), this;
     }
     return this._fitFilter;
@@ -414,7 +413,12 @@ If not specified, the first key in the *Array* returned from using `Object.keys`
       @chainable
   */
   fitKey(_) {
-    return arguments.length ? (this._fitKey = _, this) : this._fitKey;
+    if (arguments.length) {
+      this._fitKey = _;
+      this._zoomSet = false;
+      return this;
+    }
+    return this._fitKey;
   }
 
   /**
@@ -432,6 +436,7 @@ Additionally, a custom formatting function can be passed as a second argument to
       const d = [load.bind(this), _, f, "fitObject"];
       if (prev) this._queue[this._queue.indexOf(prev)] = d;
       else this._queue.push(d);
+      this._zoomSet = false;
       return this;
     }
     return this._fitObject;
@@ -543,6 +548,7 @@ Additionally, a custom formatting function can be passed as a second argument to
       const d = [load.bind(this), _, f, "topojson"];
       if (prev) this._queue[this._queue.indexOf(prev)] = d;
       else this._queue.push(d);
+      this._zoomSet = false;
       return this;
     }
     return this._topojson;
@@ -558,6 +564,7 @@ Additionally, a custom formatting function can be passed as a second argument to
     if (arguments.length) {
       if (typeof _ === "function") return this._topojsonFilter = _, this;
       if (!(_ instanceof Array)) _ = [_];
+      this._zoomSet = false;
       return this._topojsonFilter = d => _.includes(d.id), this;
     }
     return this._topojsonFilter;
@@ -572,7 +579,12 @@ If not specified, the first key in the *Array* returned from using `Object.keys`
       @chainable
   */
   topojsonKey(_) {
-    return arguments.length ? (this._topojsonKey = _, this) : this._topojsonKey;
+    if (arguments.length) {
+      this._topojsonKey = _;
+      this._zoomSet = false;
+      return this;
+    }
+    return this._topojsonKey;
   }
 
   /**
