@@ -263,26 +263,22 @@ export default class Geomap extends Viz {
             }
           };
 
-          if (d.geometry.coordinates.length > 1) {
+          if (d.geometry.type === "MultiPolygon" && d.geometry.coordinates.length > 1) {
 
             const areas = [],
                   distances = [];
 
             d.geometry.coordinates.forEach(c => {
-
               reduced.geometry.coordinates = [c];
               areas.push(path.area(reduced));
-
             });
 
             reduced.geometry.coordinates = [d.geometry.coordinates[areas.indexOf(max(areas))]];
             const center = path.centroid(reduced);
 
             d.geometry.coordinates.forEach(c => {
-
               reduced.geometry.coordinates = [c];
               distances.push(pointDistance(path.centroid(reduced), center));
-
             });
 
             const distCutoff = quantile(areas.reduce((arr, dist, i) => {
