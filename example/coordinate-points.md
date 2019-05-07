@@ -2,7 +2,7 @@
 
 # Coordinate Points on a Map
 
-The [Geomap](https://d3plus.org/docs/#Geomap) class can plot coordinate points, provided the data has latitude and longitude values. FOr example, given a data file with this format:
+The [Geomap](https://d3plus.org/docs/#Geomap) class can plot coordinate points, provided the data has latitude and longitude values. For example, given a data file with this format:
 
 ```json
 [
