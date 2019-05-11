@@ -1,8 +1,8 @@
 [height]: 550
 
-# Coordinate Point Size on a Map
+# Changing Coordinate Point Sizes
 
-For a coordinate point [Geomap](https://d3plus.org/docs/#Geomap), you can specify the point size by setting the [pointSize](https://d3plus.org/docs/#Geomap.pointSize) property to an indicator you want along with the [pointSizeMin](https://d3plus.org/docs/#Geomap.pointSizeMin) and [pointSizeMax](https://d3plus.org/docs/#Geomap.pointSizeMax) properties for specifying the range of the point size, as shown in the following example:
+For a coordinate point [Geomap](https://d3plus.org/docs/#Geomap), you can enable dynamic point sizing by setting the [pointSize](https://d3plus.org/docs/#Geomap.pointSize) property to an accessor that returns the data value you want to use. Additionally, the minimum and maximum values used in the scaling can be overridden using the [pointSizeMin](https://d3plus.org/docs/#Geomap.pointSizeMin) and [pointSizeMax](https://d3plus.org/docs/#Geomap.pointSizeMax) methods:
 
 ```js
 new d3plus.Geomap()
