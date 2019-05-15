@@ -16,7 +16,7 @@ new d3plus.Geomap()
     fitFilter: function(d) {
       return ["02", "15", "43", "60", "66", "69", "72", "78"].indexOf(d.id) < 0;
     },
-    zoom: false,
+    tiles: false,
     ocean: "transparent"
   })
   .render();
