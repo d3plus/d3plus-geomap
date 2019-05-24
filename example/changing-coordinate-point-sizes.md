@@ -10,9 +10,6 @@ new d3plus.Geomap()
     data: "https://d3plus.org/data/city_coords.json",
     groupBy: "slug",
     colorScale: "dma_code",
-    colorScaleConfig: {
-      color: ["red", "orange", "yellow", "green", "blue"]
-    },
     label: function(d) {
         return d.city + ", " + d.region;
       },

@@ -2,7 +2,7 @@
 
 # Disable Geomap Zooming
 
-For a [Geomap](https://d3plus.org/docs/#Geomap), zooming is enabled by default. To disable them entirely, set the [zoom](https://d3plus.org/docs/#Viz.zoom) property to `false`.
+For a [Geomap](https://d3plus.org/docs/#Geomap), zooming is enabled by default. To disable it entirely, set the [zoom](https://d3plus.org/docs/#Viz.zoom) property to `false`.
 
 ```js
 new d3plus.Geomap()
