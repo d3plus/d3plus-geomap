@@ -79,7 +79,7 @@ export default class Geomap extends Viz {
               }
             }
           }
-          return "#f5f5f3";
+          return this._topojsonFill();
         },
         on: {
           "mouseenter": d => !this._coordData.features.includes(d) ? this._on.mouseenter.bind(this)(d) : null,
@@ -99,6 +99,7 @@ export default class Geomap extends Viz {
     this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png";
 
     this._topojson = false;
+    this._topojsonFill = constant("#f5f5f3");
     this._topojsonFilter = d => !["010"].includes(d.id);
     this._topojsonId = accessor("id");
 
@@ -548,6 +549,16 @@ Additionally, a custom formatting function can be passed as a second argument to
       return this;
     }
     return this._topojson;
+  }
+
+  /**
+      @memberof Geomap
+      @desc The function is used to set default color of the map.
+      @param {String|Function} *value* = string
+      @chainable
+  */
+  topojsonFill(_) {
+    return arguments.length ? (this._topojsonFill = typeof _ === "function" ? _ : constant(_), this, this) : this._topojsonFill;
   }
 
   /**
