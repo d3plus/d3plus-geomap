@@ -29,9 +29,9 @@
     "d3-scale": "^2.1.2",
     "d3-selection": "^1.4.0",
     "d3-tile": "0.0.4",
-    "d3plus-common": "^0.6.45",
-    "d3plus-shape": "^0.16.6",
-    "d3plus-viz": "^0.12.19",
+    "d3plus-common": "^0.6.50",
+    "d3plus-shape": "^0.16.9",
+    "d3plus-viz": "^0.12.34",
     "topojson-client": "^3.0.0"
   },
   "scripts": {
@@ -44,7 +44,7 @@
     "test": "d3plus-test"
   },
   "devDependencies": {
-    "d3plus-dev": "^0.6.18"
+    "d3plus-dev": "^0.7.1"
   },
   "module": "es/index",
   "sideEffects": false,
