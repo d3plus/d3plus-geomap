@@ -393,9 +393,9 @@ The *value* passed can be a single id to remove, an array of ids, or a filter fu
   */
   fitFilter(_) {
     if (arguments.length) {
+      this._zoomSet = false;
       if (typeof _ === "function") return this._fitFilter = _, this;
       if (!(_ instanceof Array)) _ = [_];
-      this._zoomSet = false;
       return this._fitFilter = d => _.includes(d.id), this;
     }
     return this._fitFilter;
@@ -569,9 +569,9 @@ Additionally, a custom formatting function can be passed as a second argument to
   */
   topojsonFilter(_) {
     if (arguments.length) {
+      this._zoomSet = false;
       if (typeof _ === "function") return this._topojsonFilter = _, this;
       if (!(_ instanceof Array)) _ = [_];
-      this._zoomSet = false;
       return this._topojsonFilter = d => _.includes(d.id), this;
     }
     return this._topojsonFilter;
