@@ -43,7 +43,7 @@ export default class Geomap extends Viz {
 
     this._fitObject = false;
     this._noDataMessage = false;
-    this._ocean = "#cdd1d3";
+    this._ocean = "#d4dadc";
 
     this._point = accessor("point");
     this._pointSize = constant(1);
@@ -447,7 +447,7 @@ Additionally, a custom formatting function can be passed as a second argument to
   /**
       @memberof Geomap
       @desc The color visible behind any shapes drawn on the map projection. By default, a color value matching the color used in the map tiles is used to help mask the loading time needed to render the tiles. Any value CSS color value may be used, including hexidecimal, rgb, rgba, and color strings like `"blue"` and `"transparent"`.
-      @param {String} [*value* = "#cdd1d3"]
+      @param {String} [*value* = "#d4dadc"]
       @chainable
   */
   ocean(_) {
