@@ -429,10 +429,15 @@ Additionally, a custom formatting function can be passed as a second argument to
   */
   fitObject(_, f) {
     if (arguments.length) {
-      const prev = this._queue.find(q => q[3] === "fitObject");
-      const d = [load.bind(this), _, f, "fitObject"];
-      if (prev) this._queue[this._queue.indexOf(prev)] = d;
-      else this._queue.push(d);
+      if (typeof _ === "string") {
+        const prev = this._queue.find(q => q[3] === "fitObject");
+        const d = [load.bind(this), _, f, "fitObject"];
+        if (prev) this._queue[this._queue.indexOf(prev)] = d;
+        else this._queue.push(d);
+      }
+      else {
+        this._fitObject = _;
+      }
       this._zoomSet = false;
       return this;
     }
@@ -541,10 +546,15 @@ Additionally, a custom formatting function can be passed as a second argument to
   */
   topojson(_, f) {
     if (arguments.length) {
-      const prev = this._queue.find(q => q[3] === "topojson");
-      const d = [load.bind(this), _, f, "topojson"];
-      if (prev) this._queue[this._queue.indexOf(prev)] = d;
-      else this._queue.push(d);
+      if (typeof _ === "string") {
+        const prev = this._queue.find(q => q[3] === "topojson");
+        const d = [load.bind(this), _, f, "topojson"];
+        if (prev) this._queue[this._queue.indexOf(prev)] = d;
+        else this._queue.push(d);
+      }
+      else {
+        this._topojson = _;
+      }
       this._zoomSet = false;
       return this;
     }
