@@ -29,7 +29,7 @@
     "d3-scale": "^2.1.2",
     "d3-selection": "^1.4.0",
     "d3-tile": "0.0.4",
-    "d3plus-common": "^0.6.57",
+    "d3plus-common": "^0.6.58",
     "d3plus-shape": "^0.16.13",
     "d3plus-viz": "^0.12.43",
     "topojson-client": "^3.0.1"
