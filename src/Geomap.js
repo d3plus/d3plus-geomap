@@ -127,7 +127,7 @@ export default class Geomap extends Viz {
 
     }
 
-    const images = this._tileGroup.selectAll("image.tile")
+    const images = this._tileGroup.selectAll("image.d3plus-geomap-tile")
       .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
 
     images.exit().transition().duration(duration)
@@ -136,7 +136,7 @@ export default class Geomap extends Viz {
     const scale = tileData.scale / transform.k;
 
     images.enter().append("image")
-      .attr("class", "tile")
+      .attr("class", "d3plus-geomap-tile")
       .attr("opacity", 0)
       .attr("xlink:href", d => this._tileUrl
         .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
