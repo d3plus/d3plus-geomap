@@ -58,7 +58,7 @@ chart.render();
 
 ### More Examples
 
- * [Custom Coordinate Point Zoom](http://d3plus.org/examples/d3plus-geomap/custom-coordinate-point-zoom/)<sup> ***New***</sup>
+ * [Custom Coordinate Point Zoom](http://d3plus.org/examples/d3plus-geomap/custom-coordinate-point-zoom/)
  * [Disable Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/disable-geomap-zooming/)
  * [Geomap Color Scale Formatting](http://d3plus.org/examples/d3plus-geomap/format-geomap-scale/)
  * [Removing Background Tiles from a Geomap](http://d3plus.org/examples/d3plus-geomap/remove-tiles-from-geomap/)
@@ -276,4 +276,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Tue, 29 Oct 2019 21:32:04 GMT</sub>
+###### <sub>Documentation generated on Fri, 06 Dec 2019 14:11:29 GMT</sub>
