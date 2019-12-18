@@ -4,7 +4,11 @@
 */
 import {extent, max, quantile} from "d3-array";
 import {color} from "d3-color";
-import * as d3Geo from "d3-geo";
+
+import * as d3GeoCore from "d3-geo";
+import * as d3GeoProjection from "d3-geo-projection";
+const d3Geo = Object.assign({}, d3GeoCore, d3GeoProjection);
+
 import * as scales from "d3-scale";
 import {tile} from "d3-tile";
 import {feature} from "topojson-client";
