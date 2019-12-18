@@ -506,7 +506,7 @@ Additionally, a custom formatting function can be passed as a second argument to
   */
   projection(_) {
     if (arguments.length && _ !== "geoMercator") this._tiles = false;
-    return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_]() : _, this) : this._projection;
+    return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_] ? d3Geo[_]() : d3Geo.geoMercator() : _, this) : this._projection;
   }
 
   /**
