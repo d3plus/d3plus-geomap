@@ -57,7 +57,6 @@ export default class Geomap extends Viz {
 
     this._projection = d3Geo.geoMercator();
     this._projectionPadding = parseSides(20);
-    this._projectionRotate = [0, 0];
 
     this._shape = constant("Circle");
     this._shapeConfig = assign(this._shapeConfig, {
@@ -348,8 +347,7 @@ export default class Geomap extends Viz {
       .fitExtent(
         this._extentBounds.features.length ? [[this._projectionPadding.left, this._projectionPadding.top], [width - this._projectionPadding.right, height - this._projectionPadding.bottom]] : [[0, 0], [width, height]],
         this._extentBounds.features.length ? this._extentBounds : {type: "Sphere"}
-      )
-      .rotate(this._projectionRotate);
+      );
 
     this._shapes.push(new Path()
       .data(topoData)
@@ -527,8 +525,9 @@ Additionally, a custom formatting function can be passed as a second argument to
   */
   projectionRotate(_) {
     if (arguments.length) {
-      this._projectionRotate = _;
+      this._projection.rotate(_);
       this._tiles = false;
+      this._zoomSet = false;
       return this;
     }
     else {
