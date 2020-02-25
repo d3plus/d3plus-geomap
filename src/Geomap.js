@@ -67,7 +67,7 @@ export default class Geomap extends Viz {
           const validColorScale = this._colorScale ? `, ${this._colorScale(d, i)}` : "";
           return `${this._drawLabel(d, i)}${validColorScale}.`;
         },
-        fill: d => {
+        fill: (d, i) => {
           if (this._colorScale && !this._coordData.features.includes(d)) {
             const c = this._colorScale(d);
             if (c !== undefined && c !== null) {
@@ -81,7 +81,7 @@ export default class Geomap extends Viz {
               }
             }
           }
-          return this._topojsonFill();
+          return this._topojsonFill(d, i);
         },
         on: {
           "mouseenter": d => !this._coordData.features.includes(d) ? this._on.mouseenter.bind(this)(d) : null,
