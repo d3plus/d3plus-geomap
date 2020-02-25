@@ -286,4 +286,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Thu, 06 Feb 2020 21:14:59 GMT</sub>
+###### <sub>Documentation generated on Tue, 25 Feb 2020 15:42:31 GMT</sub>
