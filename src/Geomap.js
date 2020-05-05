@@ -26,7 +26,7 @@ import {dataLoad as load, Viz} from "d3plus-viz";
 */
 function topo2feature(topo, key) {
   const k = key && topo.objects[key] ? key : Object.keys(topo.objects)[0];
-  return feature(topo, topo.objects[k]);
+  return feature(topo, k);
 }
 
 /**
