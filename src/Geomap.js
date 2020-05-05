@@ -97,7 +97,7 @@ export default class Geomap extends Viz {
     });
 
     this._tiles = true;
-    this._tileGen = tile().wrap(false);
+    this._tileGen = tile();
     this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png";
 
     this._topojson = false;
@@ -130,7 +130,7 @@ export default class Geomap extends Viz {
     }
 
     const images = this._tileGroup.selectAll("image.d3plus-geomap-tile")
-      .data(tileData, d => `${d.x}-${d.y}-${d.z}`);
+      .data(tileData, ([x, y, z]) => `${x}-${y}-${z}`);
 
     images.exit().transition().duration(duration)
       .attr("opacity", 0).remove();
@@ -140,23 +140,23 @@ export default class Geomap extends Viz {
     images.enter().append("image")
       .attr("class", "d3plus-geomap-tile")
       .attr("opacity", 0)
-      .attr("xlink:href", d => this._tileUrl
+      .attr("xlink:href", ([x, y, z]) => this._tileUrl
         .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
-        .replace("{z}", d.z)
-        .replace("{x}", d.x)
-        .replace("{y}", d.y))
+        .replace("{z}", z)
+        .replace("{x}", x)
+        .replace("{y}", y))
       .attr("width", scale)
       .attr("height", scale)
-      .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
-      .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k)
+      .attr("x", ([x]) => x * scale + tileData.translate[0] * scale - transform.x / transform.k)
+      .attr("y", ([, y]) => y * scale + tileData.translate[1] * scale - transform.y / transform.k)
       .transition().duration(duration)
       .attr("opacity", 1);
 
     images
       .attr("width", scale)
       .attr("height", scale)
-      .attr("x", d => d.x * scale + tileData.translate[0] * scale - transform.x / transform.k)
-      .attr("y", d => d.y * scale + tileData.translate[1] * scale - transform.y / transform.k);
+      .attr("x", ([x]) => x * scale + tileData.translate[0] * scale - transform.x / transform.k)
+      .attr("y", ([, y]) => y * scale + tileData.translate[1] * scale - transform.y / transform.k);
 
   }
 
