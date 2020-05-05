@@ -24,15 +24,15 @@
   },
   "dependencies": {
     "d3-array": "^1.2.4",
-    "d3-color": "^1.4.0",
-    "d3-geo": "^1.11.9",
-    "d3-geo-projection": "^2.8.1",
+    "d3-color": "^1.4.1",
+    "d3-geo": "^1.12.0",
+    "d3-geo-projection": "^2.9.0",
     "d3-scale": "^2.1.2",
     "d3-selection": "^1.4.1",
     "d3-tile": "0.0.4",
     "d3plus-common": "^0.6.60",
     "d3plus-shape": "^0.16.14",
-    "d3plus-viz": "^0.12.53",
+    "d3plus-viz": "^0.12.54",
     "topojson-client": "^3.1.0"
   },
   "scripts": {
