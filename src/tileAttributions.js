@@ -1,6 +1,6 @@
 export default [
   {
-    matches: ["cartodb-basemaps", "cartocdn.com"],
+    matches: ["cartodb", "cartocdn"],
     text: "© <a href='http://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> contributors, © <a href='https://carto.com/attribution' target='_blank'>CARTO</a>"
   },
   {
