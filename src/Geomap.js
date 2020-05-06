@@ -4,6 +4,7 @@
 */
 import {extent, max, quantile} from "d3-array";
 import {color} from "d3-color";
+import {zoomTransform} from "d3-zoom";
 
 import * as d3GeoCore from "d3-geo";
 import * as d3GeoProjection from "d3-geo-projection";
@@ -16,6 +17,18 @@ import {feature} from "topojson-client";
 import {accessor, assign, configPrep, constant, parseSides} from "d3plus-common";
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
+
+import attributions from "./tileAttributions";
+
+/**
+ * @name findAttribution
+ * @param {String} url
+ * @private
+ */
+function findAttribution(url) {
+  const a = attributions.find(d => d.matches.some(m => url.includes(m)));
+  return a ? a.text : false;
+}
 
 /**
     @name topo2feature
@@ -98,7 +111,7 @@ export default class Geomap extends Viz {
 
     this._tiles = true;
     this._tileGen = tile();
-    this._tileUrl = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png";
+    this.tileUrl("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png");
 
     this._topojson = false;
     this._topojsonFill = constant("#f5f5f3");
@@ -114,7 +127,7 @@ export default class Geomap extends Viz {
       Renders map tiles based on the current zoom level.
       @private
   */
-  _renderTiles(transform, duration = 0) {
+  _renderTiles(transform = zoomTransform(this._container.node()), duration = 0) {
 
     let tileData = [];
     if (this._tiles) {
@@ -137,24 +150,22 @@ export default class Geomap extends Viz {
 
     const scale = tileData.scale / transform.k;
 
-    images.enter().append("image")
-      .attr("class", "d3plus-geomap-tile")
+    const tileEnter = images.enter().append("image")
+      .attr("class", "d3plus-geomap-tile");
+
+    tileEnter
       .attr("opacity", 0)
+      .transition().duration(duration)
+      .attr("opacity", 1);
+
+    images.merge(tileEnter)
+      .attr("width", scale)
+      .attr("height", scale)
       .attr("xlink:href", ([x, y, z]) => this._tileUrl
         .replace("{s}", ["a", "b", "c"][Math.random() * 3 | 0])
         .replace("{z}", z)
         .replace("{x}", x)
         .replace("{y}", y))
-      .attr("width", scale)
-      .attr("height", scale)
-      .attr("x", ([x]) => x * scale + tileData.translate[0] * scale - transform.x / transform.k)
-      .attr("y", ([, y]) => y * scale + tileData.translate[1] * scale - transform.y / transform.k)
-      .transition().duration(duration)
-      .attr("opacity", 1);
-
-    images
-      .attr("width", scale)
-      .attr("height", scale)
       .attr("x", ([x]) => x * scale + tileData.translate[0] * scale - transform.x / transform.k)
       .attr("y", ([, y]) => y * scale + tileData.translate[1] * scale - transform.y / transform.k);
 
@@ -503,7 +514,7 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   projection(_) {
-    if (arguments.length && _ !== "geoMercator") this._tiles = false;
+    if (arguments.length && _ !== "geoMercator") this.tiles(false);
     return arguments.length ? (this._projection = typeof _ === "string" ? d3Geo[_] ? d3Geo[_]() : d3Geo.geoMercator() : _, this) : this._projection;
   }
 
@@ -526,7 +537,7 @@ Additionally, a custom formatting function can be passed as a second argument to
   projectionRotate(_) {
     if (arguments.length) {
       this._projection.rotate(_);
-      this._tiles = false;
+      this.tiles(false);
       this._zoomSet = false;
       return this;
     }
@@ -542,7 +553,14 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   tiles(_) {
-    return arguments.length ? (this._tiles = _, this) : this._tiles;
+    if (arguments.length) {
+      this._tiles = _;
+      const attribution = findAttribution(this._tileUrl);
+      if (_ && this._attribution === "") this._attribution = attribution;
+      else if (!_ && this._attribution === attribution) this._attribution = "";
+      return this;
+    }
+    return this._tiles;
   }
 
   /**
@@ -552,7 +570,13 @@ Additionally, a custom formatting function can be passed as a second argument to
       @chainable
   */
   tileUrl(_) {
-    return arguments.length ? (this._tileUrl = _, this) : this._tileUrl;
+    if (arguments.length) {
+      this._tileUrl = _;
+      if (this._tiles) this._attribution = findAttribution(_);
+      if (this._tileGroup) this._renderTiles.bind(this)();
+      return this;
+    }
+    return this._tileUrl;
   }
 
   /**
