@@ -8,7 +8,8 @@ import {zoomTransform} from "d3-zoom";
 
 import * as d3GeoCore from "d3-geo";
 import * as d3GeoProjection from "d3-geo-projection";
-const d3Geo = Object.assign({}, d3GeoCore, d3GeoProjection);
+import * as d3CompositeProjections from "d3-composite-projections";
+const d3Geo = Object.assign({}, d3GeoCore, d3GeoProjection, d3CompositeProjections);
 
 import * as scales from "d3-scale";
 import {tile} from "d3-tile";
@@ -509,7 +510,7 @@ Additionally, a custom formatting function can be passed as a second argument to
 
   /**
       @memberof Geomap
-      @desc Sets the map projection used when displaying topojson and coordinate points. Any of the standard projections exported from [d3-geo](https://github.com/d3/d3-geo#projections) are accepted, whether as the string name (ie. "geoMercator") or the generator function itself. Map tiles are only usable when the projection is set to Mercator (which is also the default value).
+      @desc Sets the map projection used when displaying topojson and coordinate points. All of the projections exported from [d3-geo](https://github.com/d3/d3-geo#projections), [d3-geo-projection](https://github.com/d3/d3-geo-projection#api-reference), and [d3-composite-projections](http://geoexamples.com/d3-composite-projections/) are accepted, whether as the string name (ie. "geoMercator") or the generator function itself. Map tiles are only usable when the projection is set to Mercator (which is also the default value).
       @param {Function|String} *projection* = "geoMercator"
       @chainable
   */
