@@ -9,7 +9,7 @@ A reusable geo map built on D3 and Topojson
 If you use NPM, run `npm install d3plus-geomap --save`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-geomap/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-geomap.v0.6.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-geomap.v0.7.full.min.js"></script>
 ```
 
 [height]: 550
@@ -287,4 +287,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Tue, 16 Jun 2020 14:46:21 GMT</sub>
+###### <sub>Documentation generated on Tue, 14 Jul 2020 21:45:38 GMT</sub>
