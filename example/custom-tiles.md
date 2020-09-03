@@ -1,4 +1,5 @@
 [height]: 700
+[delay]: 4000
 
 # Changing Geomap Tiles
 

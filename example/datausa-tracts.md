@@ -1,4 +1,5 @@
 [height]: 550
+[delay]: 4000
 
 # Income by Census Tract
 

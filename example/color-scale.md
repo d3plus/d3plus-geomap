@@ -1,4 +1,5 @@
 [height]: 550
+[delay]: 3000
 
 # Choropleth w/ Jenks Breaks
 

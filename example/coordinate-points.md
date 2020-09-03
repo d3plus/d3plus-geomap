@@ -1,4 +1,5 @@
 [height]: 550
+[delay]: 3000
 
 # Coordinate Points on a Map
 

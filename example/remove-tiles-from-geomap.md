@@ -1,4 +1,5 @@
 [height]: 550
+[delay]: 4000
 
 # Removing Background Tiles from a Geomap
 

@@ -1,4 +1,5 @@
 [height]: 550
+[delay]: 4000
 
 # Changing the Fallback Topojson Fill
 
