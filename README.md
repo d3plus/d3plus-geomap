@@ -13,6 +13,7 @@ If you use NPM, run `npm install d3plus-geomap --save`. Otherwise, download the 
 ```
 
 [height]: 550
+[delay]: 4000
 
 ## Simple Choropleth Map
 
@@ -58,21 +59,22 @@ chart.render();
 
 ### More Examples
 
- * [Hiding the Color Scale](http://d3plus.org/examples/d3plus-geomap/hiding-colorscale/)
- * [Changing the Fallback Topojson Fill](http://d3plus.org/examples/d3plus-geomap/topojson-default-fill/)
+ * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)<sup> ***New***</sup>
+ * [Overriding Default ColorScale Behavior](http://d3plus.org/examples/d3plus-geomap/color-scale-custom/)<sup> ***New***</sup>
+ * [Hiding the Color Scale](http://d3plus.org/examples/d3plus-geomap/hiding-colorscale/)<sup> ***New***</sup>
+ * [Changing the Fallback Topojson Fill](http://d3plus.org/examples/d3plus-geomap/topojson-default-fill/)<sup> ***New***</sup>
  * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)
- * [Removing Background Tiles from a Geomap](http://d3plus.org/examples/d3plus-geomap/remove-tiles-from-geomap/)
- * [Geomap Color Scale Formatting](http://d3plus.org/examples/d3plus-geomap/format-geomap-scale/)
- * [Disable Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/disable-geomap-zooming/)
- * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)
- * [Changing Geomap Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)
+ * [Removing Background Tiles from a Geomap](http://d3plus.org/examples/d3plus-geomap/remove-tiles-from-geomap/)<sup> ***New***</sup>
+ * [Geomap Color Scale Formatting](http://d3plus.org/examples/d3plus-geomap/format-geomap-scale/)<sup> ***New***</sup>
+ * [Disable Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/disable-geomap-zooming/)<sup> ***New***</sup>
+ * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)<sup> ***New***</sup>
+ * [Changing Geomap Tiles](http://d3plus.org/examples/d3plus-geomap/custom-tiles/)<sup> ***New***</sup>
  * [Custom Coordinate Point Zoom](http://d3plus.org/examples/d3plus-geomap/custom-coordinate-point-zoom/)
- * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
- * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
- * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
- * [Changing Coordinate Point Sizes](http://d3plus.org/examples/d3plus-geomap/changing-coordinate-point-sizes/)
- * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)
- * [Change Default Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/change-default-geomap-zooming/)
+ * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)<sup> ***New***</sup>
+ * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)<sup> ***New***</sup>
+ * [Changing Coordinate Point Sizes](http://d3plus.org/examples/d3plus-geomap/changing-coordinate-point-sizes/)<sup> ***New***</sup>
+ * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)<sup> ***New***</sup>
+ * [Change Default Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/change-default-geomap-zooming/)<sup> ***New***</sup>
 
 ## API Reference
 
@@ -287,4 +289,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Tue, 14 Jul 2020 21:45:38 GMT</sub>
+###### <sub>Documentation generated on Thu, 03 Sep 2020 15:15:21 GMT</sub>
