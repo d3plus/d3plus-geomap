@@ -33,7 +33,7 @@
     "d3-tile": "^1.0.0",
     "d3plus-common": "^0.7.0",
     "d3plus-shape": "^0.17.0",
-    "d3plus-viz": "^0.13.3",
+    "d3plus-viz": "^0.13.4",
     "topojson-client": "^3.1.0"
   },
   "scripts": {
