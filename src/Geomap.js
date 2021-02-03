@@ -98,9 +98,9 @@ export default class Geomap extends Viz {
           return this._topojsonFill(d, i);
         },
         on: {
-          "mouseenter": d => !this._coordData.features.includes(d) ? this._on.mouseenter.bind(this)(d) : null,
-          "mousemove.shape": d => !this._coordData.features.includes(d) ? this._on["mousemove.shape"].bind(this)(d) : null,
-          "mouseleave": d => !this._coordData.features.includes(d) ? this._on.mouseleave.bind(this)(d) : null
+          "mouseenter": (d, i, x, event) => !this._coordData.features.includes(d) ? this._on.mouseenter.bind(this)(d, i, x, event) : null,
+          "mousemove.shape": (d, i, x, event) => !this._coordData.features.includes(d) ? this._on["mousemove.shape"].bind(this)(d, i, x, event) : null,
+          "mouseleave": (d, i, x, event) => !this._coordData.features.includes(d) ? this._on.mouseleave.bind(this)(d, i, x, event) : null
         },
         stroke: (d, i) => {
           const c = typeof this._shapeConfig.Path.fill === "function" ? this._shapeConfig.Path.fill(d, i) : this._shapeConfig.Path.fill;
