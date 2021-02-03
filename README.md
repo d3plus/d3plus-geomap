@@ -1,15 +1,18 @@
 # d3plus-geomap
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-geomap.svg?style=flat)](https://www.npmjs.org/package/d3plus-geomap) [![Build Status](https://travis-ci.org/d3plus/d3plus-geomap.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-geomap) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-geomap.svg?style=flat)](https://david-dm.org/d3plus/d3plus-geomap) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress-100%25-brightgreen.svg?style=flat)](https://github.com/d3plus/d3plus-geomap/projects/1)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-geomap.svg?style=flat)](https://www.npmjs.org/package/d3plus-geomap) [![Build Status](https://travis-ci.org/d3plus/d3plus-geomap.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-geomap) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-geomap.svg?style=flat)](https://david-dm.org/d3plus/d3plus-geomap) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/)
 
 A reusable geo map built on D3 and Topojson
 
 ## Installing
 
-If you use NPM, run `npm install d3plus-geomap --save`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-geomap/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
+If you use NPM, `npm install d3plus-geomap`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-geomap/releases/latest). You can also load d3plus-geomap as a standalone library or as part of [D3plus](https://github.com/d3plus/d3plus). ES modules, AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3plus` global is exported:
 
 ```html
-<script src="https://d3plus.org/js/d3plus-geomap.v0.7.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3plus-geomap@1"></script>
+<script>
+  console.log(d3plus);
+</script>
 ```
 
 [height]: 550
@@ -59,12 +62,10 @@ chart.render();
 
 ### More Examples
 
- * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
- * [Overriding Default ColorScale Behavior](http://d3plus.org/examples/d3plus-geomap/color-scale-custom/)
- * [Hiding the Color Scale](http://d3plus.org/examples/d3plus-geomap/hiding-colorscale/)
- * [Changing the Fallback Topojson Fill](http://d3plus.org/examples/d3plus-geomap/topojson-default-fill/)
  * [Resetting Defaults](http://d3plus.org/examples/d3plus-geomap/reset-config/)
+ * [Changing the Fallback Topojson Fill](http://d3plus.org/examples/d3plus-geomap/topojson-default-fill/)
  * [Removing Background Tiles from a Geomap](http://d3plus.org/examples/d3plus-geomap/remove-tiles-from-geomap/)
+ * [Hiding the Color Scale](http://d3plus.org/examples/d3plus-geomap/hiding-colorscale/)
  * [Geomap Color Scale Formatting](http://d3plus.org/examples/d3plus-geomap/format-geomap-scale/)
  * [Disable Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/disable-geomap-zooming/)
  * [Income by Census Tract](http://d3plus.org/examples/d3plus-geomap/datausa-tracts/)
@@ -72,6 +73,8 @@ chart.render();
  * [Custom Coordinate Point Zoom](http://d3plus.org/examples/d3plus-geomap/custom-coordinate-point-zoom/)
  * [Choropleth w/ Custom Colors](http://d3plus.org/examples/d3plus-geomap/custom-color/)
  * [Coordinate Points on a Map](http://d3plus.org/examples/d3plus-geomap/coordinate-points/)
+ * [Overriding Default ColorScale Behavior](http://d3plus.org/examples/d3plus-geomap/color-scale-custom/)
+ * [Choropleth w/ Jenks Breaks](http://d3plus.org/examples/d3plus-geomap/color-scale/)
  * [Changing Coordinate Point Sizes](http://d3plus.org/examples/d3plus-geomap/changing-coordinate-point-sizes/)
  * [Changing Map Projections](http://d3plus.org/examples/d3plus-geomap/change-projection/)
  * [Change Default Geomap Zooming](http://d3plus.org/examples/d3plus-geomap/change-default-geomap-zooming/)
@@ -289,4 +292,4 @@ This is a static method of [<code>Geomap</code>](#Geomap), and is chainable with
 
 
 
-###### <sub>Documentation generated on Fri, 09 Oct 2020 17:21:52 GMT</sub>
+###### <sub>Documentation generated on Wed, 03 Feb 2021 14:48:30 GMT</sub>
