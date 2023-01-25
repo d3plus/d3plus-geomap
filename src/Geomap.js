@@ -19,7 +19,7 @@ import {accessor, assign, configPrep, constant, parseSides} from "d3plus-common"
 import {Circle, Path, pointDistance} from "d3plus-shape";
 import {dataLoad as load, Viz} from "d3plus-viz";
 
-import attributions from "./tileAttributions";
+import attributions from "./tileAttributions.js";
 
 /**
  * @name findAttribution

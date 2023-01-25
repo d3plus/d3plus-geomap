@@ -1,9 +1,9 @@
 # Contributing
 
-We love Pull Requests from anyone and everyone. To get started, fork the repo, then clone your fork:
+If you are looking to contribute to the d3plus.org examples and documentation, please visit the [d3plus-storybook](https://github.com/d3plus/d3plus-storybook.git) repository. If you are looking to contribute to the core source code of d3plus, start by cloning this repo:
 
 ```sh
-git clone git@github.com:your-username/d3plus-geomap.git
+git clone https://github.com/d3plus/d3plus-geomap.git
 ```
 
 ## Setting up your Environment
@@ -15,11 +15,11 @@ git clone git@github.com:your-username/d3plus-geomap.git
 npm i
 ```
 
-And that's it! Now your environment should be all set up and ready to go.
+And that's it! Your environment should be all set up and ready to start coding.
 
 ## Writing Code
 
-With the introduction of modules in D3plus 2.0, all code is transpiled using [babel](https://babeljs.io/), which allows usage of most of the good bits from ES6. If you are unfamiliar with ES6, then normal vanilla javascript works fine as well (but we may suggest PR revisions to include more succinct ES6). All source code lives in the `./src` directory.
+All code is transpiled using [babel](https://babeljs.io/), which allows usage of most of the good bits from ES6. If you are unfamiliar with ES6, then normal vanilla javascript works fine as well (but we may suggest PR revisions to include more succinct ES6). All source code lives in the `./src` directory.
 
 ## Code Style
 
@@ -58,108 +58,28 @@ npm run docs
 
 ## Tests
 
-Any time you write a new feature for a module, you should also be writing tests. D3plus modules come bundled with a test suite that let's you write tests using full ES6, which are then run directly in a headless Electron browser.
+Any time you write a new feature for a module, you should also be writing tests. D3plus modules come bundled with a test suite that let's you write functional tests using [Mocha](https://mochajs.org/) and [JSDOM](https://github.com/jsdom/jsdom).
 
-All tests need to be placed in the `./test` directory, and the filenames should match up to the components in `./src`. To run all tests, run:
+All tests need to be placed in the `./test` directory, and the filenames should match up to the components in `./src` with a suffix of `-test.js`. To run all tests, run:
 
 ```sh
 npm test
 ```
-> This command will also lint all files according to the provided `.eslintc` file.
+> This command will also lint all files using eslint.
 
-D3plus uses [zora](https://github.com/lorenzofox3/zora) for running tests, and [tape-run](https://github.com/juliangruber/tape-run) for outputting the results. Here is an example of what a test file could look like:
+Here is an example of what a test file could look like:
 
 ```js
-import {test} from "zora";
+import assert from "assert";
+import it from "./jsdom.js"; // optional import, only the test needs window/document
 
-test("testing booleans", assert => {
+it("example test title", () => {
 
-  assert.equal(true, true, "testing true");
-  assert.equal(false, false, "testing false");
+  assert.strictEqual(true, true, "the truth test");
 
 });
 
-test("testing numbers", assert => {
-
-  assert.equal(1, 1, "testing 1");
-  assert.equal(2, 2, "testing 2");
-
-});
-
-export default test;
 ```
-
-## Examples
-
-All D3plus 2.0 examples seen on [d3plus.org](https://d3plus.org) are created from within their respective repositories. The examples are parsed from any markdown files placed in the `./example` directory, with the following behaviors:
-
-#### Title
-
-Example titles are extracted from the first H1 present in the file. Generally, the first line of the file will be the title:
-
-```md
-# My Cool Example
-```
-
-#### URL Slug
-
-The slug used in the URL on [d3plus.org](https://d3plus.org) is taken directly from the filename. A file with the following path:
-
-```sh
-/example/my-cool-example.md
-```
-
-Would end up at the following URL:
-
-```sh
-https://d3plus.org/examples/d3plus-geomap/my-cool-example/
-```
-
-#### Code Blocks
-
-Any `css`, `html`, or `js` code block present in an example will be extracted and rendered into a static HTML file. This is what gets used on [d3plus.org](https://d3plus.org), and also let's us take screenshots!
-
-#### Screenshots
-
-A screenshot of each example is generated from the rendered HTML. By default, each screenshot is 990x400 in size, but specific dimensions can be given using markdown relative links:
-
-```md
-[width]: 100
-[height]: 100
-```
-
-Adding all that together, here is a sample of what a full example could look like:
-
-`````md
-[width]: 100
-[height]: 100
-
-# A Cool Red Square
-
-In this example, we show you how to add a red square to a webpage!
-
-```html
-<div id="container"></div>
-```
-
-Wow, look at that container element. Such beauty.
-
-```css
-#container > div {
-  background-color: red;
-  height: 100px;
-  width: 100px;
-}
-```
-
-CSS. Amazing. Now let's finish this off with some JavaScript!
-
-```js
-var box = document.createElement("div");
-document.getElementById("container").appendChild(box);
-```
-
-`````
 
 ## Submitting a Pull Request
 

@@ -1,1 +1,1 @@
-export {default as Geomap} from "./src/Geomap";
+export {default as Geomap} from "./src/Geomap.js";
