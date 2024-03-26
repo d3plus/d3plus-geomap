@@ -1,6 +1,6 @@
 {
   "name": "d3plus-geomap",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A reusable geo map built on D3 and Topojson",
   "main": "build/d3plus-geomap.js",
   "jsnext:main": "es/index",
